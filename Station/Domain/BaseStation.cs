@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Station.Domain
 {
-    public class Station : IStationInfo
+    public class BaseStation : IStationInfo
     {
         // ctor
-        public Station(string name, string description)
+        public BaseStation(string name, string description)
         {
             Name = name;
             Description = description;
