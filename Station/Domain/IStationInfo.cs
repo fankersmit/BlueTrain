@@ -6,8 +6,8 @@ namespace Station.Domain
     public interface IStationInfo
     {
         Guid Id { get; }
-        string Name { get; }
-        string Description { get;  }
+        Name Name { get; }
+        Description Description { get;  }
         Dictionary<string, string> Capabilities { get;  }
         StationStatus Status { get; set; }
     }
