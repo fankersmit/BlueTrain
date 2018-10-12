@@ -6,7 +6,7 @@ namespace Station.Domain
     public class BaseStation : IStationInfo
     {
         // ctor
-        public BaseStation(string name, string description)
+        public BaseStation(Name name, Description description)
         {
             Name = name;
             Description = description;
@@ -15,8 +15,8 @@ namespace Station.Domain
         }
 
         public Guid Id { get; }
-        public string Name { get; }
-        public string Description { get; }
+        public Name Name { get; }
+        public Description Description { get; }
         public Dictionary<string, string> Capabilities { get; }
         public StationStatus Status { get; set; }
     }
