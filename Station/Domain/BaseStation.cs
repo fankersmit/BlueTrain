@@ -12,6 +12,7 @@ namespace Station.Domain
             Description = description;
             Id  = Guid.NewGuid();
             Status = StationStatus.Closed;
+            Capabilities = new Dictionary<string, string>();
         }
 
         public Guid Id { get; }
