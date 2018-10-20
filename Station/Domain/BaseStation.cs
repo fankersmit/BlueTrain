@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Station.Domain
@@ -13,6 +14,9 @@ namespace Station.Domain
             Id  = Guid.NewGuid();
             Status = StationStatus.Closed;
             Capabilities = new Dictionary<string, string>();
+            
+            // handling of containers
+            Containers = new List<IContainerInfo>();
         }
 
         public Guid Id { get; }
@@ -20,5 +24,6 @@ namespace Station.Domain
         public Description Description { get; }
         public Dictionary<string, string> Capabilities { get; }
         public StationStatus Status { get; set; }
+        public IEnumerable<IContainerInfo> Containers { get; set; }
     }
 }
