@@ -1,12 +1,12 @@
 using System;
 using Station.Domain;
 
-namespace DomainTests
+namespace Station.Domain
 {
-    public class Arrival
+    public class Departure
     {
         public IContainerInfo Container { get; }
         public DateTime ArrivedAt { get; }
-        public IStationInfo DepartedFrom { get;  }
+        public IStationInfo DepartedTo { get;  }
     }
 }

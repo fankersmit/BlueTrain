@@ -16,7 +16,8 @@ namespace Station.Domain
             Capabilities = new Dictionary<string, string>();
             
             // handling of containers
-            Containers = new List<IContainerInfo>();
+            Containers = new List<Container>();
+            Arrivals = new List<Arrival>();
         }
 
         public Guid Id { get; }
@@ -24,6 +25,7 @@ namespace Station.Domain
         public Description Description { get; }
         public Dictionary<string, string> Capabilities { get; }
         public StationStatus Status { get; set; }
-        public IEnumerable<IContainerInfo> Containers { get; set; }
+        public IList<Container> Containers { get;  }
+        public IList<Arrival> Arrivals { get;  }
     }
 }
