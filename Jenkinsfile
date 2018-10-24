@@ -3,12 +3,12 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git(url: 'https://github.com/fankersmit/BlueTrain', branch: 'master', changelog: true, poll: true, credentialsId: '  GNU nano 2.2.6                New Buffer                            Modified    590655c7bd576b761f2c5e76ba09ac779e8a0034')
+        git(url: 'https://github.com/fankersmit/BlueTrain', branch: 'master', changelog: true, poll: true, credentialsId: '590655c7bd576b761f2c5e76ba09ac779e8a0034')
       }
     }
     stage('Restore') {
       steps {
-        sh 'sh /usr/bin/dotnet Restore'
+        sh 'sh dotnet restore'
       }
     }
     stage('Clean') {
