@@ -22,4 +22,7 @@ pipeline {
       }
     }
   }
+  environment {
+    dotnet = '/usr/share/dotnet/sdk/2.1.4/dotnet.dll'
+  }
 }
