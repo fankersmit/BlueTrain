@@ -8,7 +8,7 @@ pipeline {
     }
     stage('Restore') {
       steps {
-        sh 'sh dotnet restore'
+        sh 'sh \'dotnet restore\''
       }
     }
     stage('Clean') {
