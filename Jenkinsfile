@@ -8,7 +8,7 @@ pipeline {
     }
     stage('Restore') {
       steps {
-        sh 'sh %dotnet% Restore'
+        sh 'sh dotnet Restore'
       }
     }
     stage('Clean') {
@@ -23,6 +23,6 @@ pipeline {
     }
   }
   environment {
-    dotnet = '/usr/share/dotnet/sdk/2.1.4/dotnet.dll'
+    dotnet = '/usr/bin/dotnet'
   }
 }
