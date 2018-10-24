@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Checkout') {
           steps {
-            git(branch: 'master', url: '\'http://github.com/fankersmit/BlueTrain', credentialsId: '590655c7bd576b761f2c5e76ba09ac779e8a0034 ')
+            git(branch: 'master', url: '\'github.com/fankersmit/BlueTrain', credentialsId: '590655c7bd576b761f2c5e76ba09ac779e8a0034 ')
           }
         }
       }
