@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Station.Domain
+namespace Terminal.Domain
 {
-    public interface IStationInfo
+    public interface ITerminalInfo
     {
         Guid Id { get; }
         Name Name { get; }
         Description Description { get;  }
         Dictionary<string, string> Capabilities { get;  }
-        StationStatus Status { get; set; }
+        TerminalStatus Status { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 using System;
-using Station.Domain;
+using Terminal.Domain;
 using Xunit;
 
 namespace DomainTests

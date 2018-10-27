@@ -2,17 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Station.Domain
+namespace Terminal.Domain
 {
-    public class BaseStation : IStationInfo
+    public class BaseTerminal : ITerminalInfo
     {
         // ctor
-        public BaseStation(Name name, Description description)
+        public BaseTerminal(Name name, Description description)
         {
             Name = name;
             Description = description;
             Id  = Guid.NewGuid();
-            Status = StationStatus.Closed;
+            Status = TerminalStatus.Closed;
             Capabilities = new Dictionary<string, string>();
             
             // handling of containers
@@ -24,7 +24,7 @@ namespace Station.Domain
         public Name Name { get; }
         public Description Description { get; }
         public Dictionary<string, string> Capabilities { get; }
-        public StationStatus Status { get; set; }
+        public TerminalStatus Status { get; set; }
         public IList<Container> Containers { get;  }
         public IList<Arrival> Arrivals { get;  }
     }

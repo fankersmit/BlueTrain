@@ -1,19 +1,19 @@
 using System;
-using Station.Domain;
+using Terminal.Domain;
 
-namespace Station.Domain
+namespace Terminal.Domain
 {
     public class Arrival
     {
-        public Arrival(Container container, BaseStation departedFromStation)
+        public Arrival(Container container, BaseTerminal departedFromTerminal)
         {
             Container = container;
-            DepartedFrom = departedFromStation as IStationInfo;
+            DepartedFrom = departedFromTerminal as ITerminalInfo;
             ArrivedAt = DateTime.Now.ToUniversalTime();
         }
 
         public IContainerInfo Container { get;  }
         public DateTime ArrivedAt { get; }
-        public IStationInfo DepartedFrom { get;  }
+        public ITerminalInfo DepartedFrom { get;  }
     }
 }

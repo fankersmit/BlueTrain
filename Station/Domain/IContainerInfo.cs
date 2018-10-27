@@ -1,6 +1,6 @@
 using System;
 
-namespace Station.Domain
+namespace Terminal.Domain
 {
     public interface IContainerInfo
     {

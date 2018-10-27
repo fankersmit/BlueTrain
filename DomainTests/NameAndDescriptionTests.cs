@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Xunit;
-using Station.Domain;
+using Terminal.Domain;
 
 namespace DomainTests
 {
@@ -11,12 +11,12 @@ namespace DomainTests
         public void Name_HasDefaultValue_WhenCreated_WithNull()
         {
             var name = new Name(null);
-            Assert.Equal( "Default Station", name.value );
+            Assert.Equal( "Default Terminal", name.value );
         }
         
         [Theory]
-        [InlineData("", "Default Station")]
-        [InlineData("     ", "Default Station")]
+        [InlineData("", "Default Terminal")]
+        [InlineData("     ", "Default Terminal")]
         public void Name_HasDefaultValue_WhenCreated_WithNoName(string actual, string expected)
         {
             var name = new Name(actual);
@@ -26,7 +26,7 @@ namespace DomainTests
         [Theory]
         [InlineData("Akhnaton  ", "Akhnaton")] // trim
         [InlineData("Akhnaton", "Akhnaton")]   // assign
-        [InlineData("Akhnaton Station left of Huntington", "Akhnaton Station left of")]   // cut to maxlength
+        [InlineData("Akhnaton Terminal left of Huntington", "Akhnaton Terminal left of")]   // cut to maxlength
         public void Name_IsTrimmedAndAssigned_WhenGiven(string actual, string expected)
         {
             var name = new Name(actual);

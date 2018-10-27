@@ -1,6 +1,6 @@
-namespace Station.Domain
+namespace Terminal.Domain
 {
-    public enum StationStatus
+    public enum TerminalStatus
     {
         Open,
         Closed,

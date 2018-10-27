@@ -1,4 +1,4 @@
-namespace Station.Domain
+namespace Terminal.Domain
 {
     public class Description : TinyTypeOfString
     {

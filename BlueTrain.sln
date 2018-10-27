@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Station", "Station\Station.csproj", "{4D30F1C2-EAB0-46B3-AAD4-D07C31E92578}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal", "Terminal\Terminal.csproj", "{4D30F1C2-EAB0-46B3-AAD4-D07C31E92578}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTests", "DomainTests\DomainTests.csproj", "{41F7E31F-763A-4B69-96A8-200D0E95E1D3}"
 EndProject
