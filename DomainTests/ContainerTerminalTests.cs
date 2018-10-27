@@ -1,4 +1,3 @@
-using System.Linq;
 using Terminal.Domain;
 using Xunit;
 
@@ -9,8 +8,8 @@ namespace DomainTests
         [Fact]
         public void Terminal_HasNoContainers_AfterCreation()
         {
-            var Terminal = CreateTerminal();
-            Assert.Empty( Terminal.Containers);
+            var terminal = CreateTerminal();
+            Assert.Empty( terminal.Containers);
         }
 
         [Fact]
