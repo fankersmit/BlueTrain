@@ -18,6 +18,7 @@ namespace Terminal.Domain
             // handling of containers
             Containers = new List<Container>();
             Arrivals = new List<Arrival>();
+            Departures = new List<Departure>();
         }
 
         public Guid Id { get; }
@@ -27,5 +28,7 @@ namespace Terminal.Domain
         public TerminalStatus Status { get; set; }
         public IList<Container> Containers { get;  }
         public IList<Arrival> Arrivals { get;  }
+        public IList<Departure> Departures { get;  }
+        
     }
 }

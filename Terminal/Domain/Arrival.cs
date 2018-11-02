@@ -5,15 +5,13 @@ namespace Terminal.Domain
 {
     public class Arrival
     {
-        public Arrival(Container container, BaseTerminal departedFromTerminal)
+        public Arrival(Container container  )
         {
             Container = container;
-            DepartedFrom = departedFromTerminal as ITerminalInfo;
             ArrivedAt = DateTime.Now.ToUniversalTime();
         }
 
         public IContainerInfo Container { get;  }
         public DateTime ArrivedAt { get; }
-        public ITerminalInfo DepartedFrom { get;  }
     }
 }

@@ -23,7 +23,7 @@ namespace DomainTests
             var arrivedAtTerminal = CreateTerminal(name2);
             
             //NOTE: act of arriving is not yet implemented
-            var arrival = new Arrival( container, departedFromTerminal );
+            var arrival = new Arrival( container );
             Assert.True(arrivedAtTerminal.Arrivals.Count == 0);
             arrivedAtTerminal.Arrivals.Add(arrival);
             Assert.True(arrivedAtTerminal.Arrivals.Count == 1);
@@ -32,15 +32,19 @@ namespace DomainTests
         [Fact]
         public void Terminal_Records_ContainerDeparture()
         {
-            Assert.False(true);
+            var container = CreateContainer();
+            
+            var  name2 = new Name("Kappa");
+            var arrivedAtTerminal = CreateTerminal(name2);
+            
+            //NOTE: act of departing is not yet implemented
+            var departure = new Departure(container);
+            Assert.True(arrivedAtTerminal.Departures.Count == 0);
+            arrivedAtTerminal.Departures.Add(departure);
+            Assert.True(arrivedAtTerminal.Departures.Count == 1);
         }
         
-        [Fact]
-        public void Terminal_ByDefault_Processes_Container()
-        {
-            Assert.False(true);
-        }
-        
+       
         // private factory methods
         private BaseTerminal CreateTerminal()
         {
