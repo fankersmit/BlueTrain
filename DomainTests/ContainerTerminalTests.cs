@@ -6,13 +6,6 @@ namespace DomainTests
     public class ContainerTerminalTests
     {
         [Fact]
-        public void Terminal_HasNoContainers_AfterCreation()
-        {
-            var terminal = CreateTerminal();
-            Assert.Empty( terminal.Containers);
-        }
-
-        [Fact]
         public void Terminal_Records_ContainerArrival()
         {   
             var container = CreateContainer();

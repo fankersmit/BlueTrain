@@ -7,6 +7,20 @@ namespace DomainTests
 {
     public class BasicTerminalTests
     {
+        private readonly Name _terminalName;
+        private readonly Description _terminalDescription;
+        
+        public BasicTerminalTests()
+        {
+            _terminalName = new Name("terminalName");
+            _terminalDescription = new Description("terminalDescription");
+        }
+
+        public void Dispose()
+        {
+            // required by XUnit        
+        }
+
         [Fact]
         public void Terminal_IsClosed_OnCreation()
         {
@@ -33,10 +47,17 @@ namespace DomainTests
             Assert.False( terminal.Id == Guid.Empty);
         }
 
+        [Fact]
+        public void Terminal_Yard_IsEmpty_AfterCreation()
+        {
+            var terminal = CreateTerminal();
+            Assert.True(terminal.HoldingYard.IsEmpty);
+        }
+
         // private factory methods
         private BaseTerminal CreateTerminal()
         {
-            return new BaseTerminal(new Name("TerminalName"), new Description("TerminalDescription"));
+            return new BaseTerminal( _terminalName, _terminalDescription);
         }
     }
 }

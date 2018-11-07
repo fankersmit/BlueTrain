@@ -16,7 +16,7 @@ namespace Terminal.Domain
             Capabilities = new Dictionary<string, string>();
             
             // handling of containers
-            Containers = new List<Container>();
+            HoldingYard = new HoldingYard();
             Arrivals = new List<Arrival>();
             Departures = new List<Departure>();
         }
@@ -26,7 +26,7 @@ namespace Terminal.Domain
         public Description Description { get; }
         public Dictionary<string, string> Capabilities { get; }
         public TerminalStatus Status { get; set; }
-        public IList<Container> Containers { get;  }
+        public HoldingYard HoldingYard { get;  }
         public IList<Arrival> Arrivals { get;  }
         public IList<Departure> Departures { get;  }
         
