@@ -28,7 +28,7 @@ namespace BluetrainTests
         {
             return new Container(
                 new Name("ContainerName"), 
-                new Description("Container description")
+                new Description("Containers description")
             );
         }
     }

@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluetrainTests", "BluetrainTests\BluetrainTests.csproj", "{41F7E31F-763A-4B69-96A8-200D0E95E1D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Container", "Container\Container.csproj", "{64DFD90F-0E8F-4572-A640-26E3865370E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Containers", "Containers\Containers.csproj", "{64DFD90F-0E8F-4572-A640-26E3865370E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal", "Terminal\Terminal.csproj", "{DB4E15BC-AC41-4F2D-ABB1-BAB8403642C5}"
 EndProject
