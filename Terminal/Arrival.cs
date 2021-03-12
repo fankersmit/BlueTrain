@@ -1,7 +1,7 @@
 using System;
-using Terminal.Domain;
+using BlueTrain.Containers;
 
-namespace Terminal.Domain
+namespace BlueTrain.Terminal
 {
     public class Arrival
     {

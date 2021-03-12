@@ -1,8 +1,9 @@
 using System;
-using Terminal.Domain;
+using BlueTrain.Containers;
+using BlueTrain.Shared;
 using Xunit;
 
-namespace DomainTests
+namespace BluetrainTests
 {
     public class ContainerTests
     {

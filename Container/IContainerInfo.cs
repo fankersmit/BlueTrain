@@ -1,6 +1,7 @@
 using System;
+using BlueTrain.Shared;
 
-namespace Terminal.Domain
+namespace BlueTrain.Containers
 {
     public interface IContainerInfo
     {

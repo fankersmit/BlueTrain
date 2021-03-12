@@ -1,9 +1,10 @@
 using System;
 using Xunit;
-using Terminal.Domain;
+using BlueTrain.Terminal;
+using BlueTrain.Shared;
 
 
-namespace DomainTests
+namespace BluetrainTests
 {
     public class BasicTerminalTests
     {

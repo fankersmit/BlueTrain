@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using BlueTrain.Shared;
 
-namespace Terminal.Domain
+namespace BlueTrain.Terminal
 {
     public interface ITerminalInfo
     {

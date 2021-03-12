@@ -1,4 +1,4 @@
-namespace Terminal.Domain
+namespace BlueTrain.Containers
 {
     public enum ContainerStatus
     {

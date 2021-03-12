@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using BlueTrain.Containers;
 
-namespace Terminal.Domain
+namespace BlueTrain.Terminal
 {
     public class HoldingYard
     {
-        private readonly IList<Terminal.Domain.Container> _containers;
+        private readonly IList<Container> _containers;
 
         // properties
         public bool IsEmpty => _containers.Count == 0;
@@ -14,7 +15,7 @@ namespace Terminal.Domain
         // ctors
         public HoldingYard()
         {
-            _containers = new List<Terminal.Domain.Container>();
+            _containers = new List<Container>();
         }
 
 

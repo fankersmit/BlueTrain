@@ -1,4 +1,4 @@
-namespace Terminal.Domain
+namespace BlueTrain.Terminal
 {
     public enum TerminalStatus
     {

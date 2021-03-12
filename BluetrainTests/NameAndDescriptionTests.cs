@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Xunit;
-using Terminal.Domain;
+using BlueTrain.Containers;
+using BlueTrain.Shared;
 
-namespace DomainTests
+namespace BluetrainTests
 {
     public class NameTests
     {

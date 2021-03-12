@@ -1,9 +1,9 @@
-using System.Xml;
-using Microsoft.VisualStudio.TestPlatform.Common.DataCollection;
-using Terminal.Domain;
 using Xunit;
+using BlueTrain.Shared;
+using BlueTrain.Containers;
+using BlueTrain.Terminal;
 
-namespace DomainTests
+namespace BluetrainTests
 {
     public class HoldingYardTests
     {

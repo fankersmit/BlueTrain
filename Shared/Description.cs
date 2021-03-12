@@ -1,4 +1,4 @@
-namespace Terminal.Domain
+namespace BlueTrain.Shared
 {
     public class Description : TinyTypeOfString
     {
