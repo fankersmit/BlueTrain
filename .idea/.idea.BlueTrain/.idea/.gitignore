@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/projectSettingsUpdater.xml
+/modules.xml
+/.idea.BlueTrain.iml
+# Datasource local storage ignored files
+/../../../../../../../../:\Users\Frits Ankersmit\RiderProjects\BlueTrain\.idea\.idea.BlueTrain\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
