@@ -1,0 +1,39 @@
+
+strategie of using services in nancy modules
+=============================================
+1 private  readonly type with  service interface definition
+2 inject  concrete type in constructor
+3 use in methods
+
+nancyfx
+=======
+https://www.infoworld.com/article/3232636/application-development/how-to-use-dependency-injection-in-aspnet-core.html
+https://medium.com/volosoft/asp-net-core-dependency-injection-best-practices-tips-tricks-c6e9c67f9d96
+https://github.com/NancyFx/Nancy/issues/2869
+https://thesenilecoder.blogspot.nl/2016/11/nancyfx-stateless-auth-example.html
+http://t-code.pl/blog/2016/03/strategy-pattern-nancy/
+http://mike-ward.net/2013/04/16/adding-elmah-to-a-nancy-site/
+http://www.smaclellan.com/posts/di-container-fun/
+https://github.com/grumpydev/TinyIoC/wiki/Registration---lifetimes
+
+dependnecy injection
+====================
+https://jeremybytes.blogspot.com/2017/09/using-built-in-dependency-injection-in.html
+
+Entity Framework
+================
+https://www.simple-talk.com/dotnet/net-development/building-better-entity-framework-applications/?utm_source=simpletalk&utm_medium=pubemail&utm_campaign=dotnetnewsletter&utm_content=20170518-slot1
+
+Continuous delivery
+===================
+https://www.infoq.com/presentations/continuous-delivery-highlights?utm_source=infoqWeeklyNewsletter&utm_medium=WeeklyNL_EditorialContent_culture-methods&utm_campaign=09192017news&utm_content=other
+
+git  best practices
+===================
+https://blog.hartleybrody.com/git-small-teams/
+
+build automation
+================
+https://stackify.com/continuous-delivery-git-jenkins/
+https://shawtyds.wordpress.com/2017/09/06/build-automation-for-dotnet-core-apps/
+https://www.thegeekstuff.com/2016/10/jenkins-git-setup
