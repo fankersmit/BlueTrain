@@ -2,8 +2,10 @@ namespace BlueTrain.Terminal
 {
     public enum TerminalStatus
     {
-        Open,
         Closed,
-        InService
+        Opening,
+        Open,
+        Closing
+
     }
 }

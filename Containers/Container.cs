@@ -6,11 +6,11 @@ namespace BlueTrain.Containers
     public class Container : IContainerInfo
     {
         public Guid Id { get; }
-        public Name Name { get; }
-        public Description Description { get; }
+        public string Name { get; }
+        public string Description { get; }
         public ContainerStatus Status { get; set; }
 
-        public Container(Name n, Description d)
+        public Container(string n, string d)
         {
             Name = n;
             Description = d;

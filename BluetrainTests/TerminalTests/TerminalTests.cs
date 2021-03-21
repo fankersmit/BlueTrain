@@ -6,20 +6,15 @@ using BlueTrain.Shared;
 
 namespace BluetrainTests
 {
-    public class BasicTerminalTests
+    public class TerminalTests
     {
-        private readonly Name _terminalName;
-        private readonly Description _terminalDescription;
+        private readonly string _terminalName;
+        private readonly string _terminalDescription;
         
-        public BasicTerminalTests()
+        public TerminalTests()
         {
-            _terminalName = new Name("terminalName");
-            _terminalDescription = new Description("terminalDescription");
-        }
-
-        public void Dispose()
-        {
-            // required by XUnit        
+            _terminalName = "terminalName";
+            _terminalDescription = "terminalDescription";
         }
 
         [Fact]
@@ -56,9 +51,10 @@ namespace BluetrainTests
         }
 
         // private factory methods
-        private BaseTerminal CreateTerminal()
+        private Terminal CreateTerminal()
         {
-            return new BaseTerminal( _terminalName, _terminalDescription);
+            var id  = Guid.NewGuid();
+            return new Terminal( _terminalName, _terminalDescription, id);
         }
     }
 }

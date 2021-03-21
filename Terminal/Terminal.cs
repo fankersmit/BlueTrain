@@ -5,31 +5,26 @@ using BlueTrain.Shared;
 
 namespace BlueTrain.Terminal
 {
-    public class BaseTerminal : ITerminalInfo
+    public class Terminal : ITerminal
     {
         // ctor
-        public BaseTerminal(Name name, Description description)
+        public Terminal(string  name, string description, Guid Identifier)
         {
             Name = name;
             Description = description;
-            Id  = Guid.NewGuid();
+            Id  = Identifier;
             Status = TerminalStatus.Closed;
             Capabilities = new Dictionary<string, string>();
             
             // handling of containers
             HoldingYard = new HoldingYard();
-            Arrivals = new List<Arrival>();
-            Departures = new List<Departure>();
         }
 
         public Guid Id { get; }
-        public Name Name { get; }
-        public Description Description { get; }
+        public string Name { get; }
+        public string Description { get; }
         public Dictionary<string, string> Capabilities { get; }
         public TerminalStatus Status { get; set; }
-        public HoldingYard HoldingYard { get;  }
-        public IList<Arrival> Arrivals { get;  }
-        public IList<Departure> Departures { get;  }
-        
+        public IHoldingYard HoldingYard { get;  }
     }
 }

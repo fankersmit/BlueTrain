@@ -26,10 +26,7 @@ namespace BluetrainTests
         // private factory method
         private Container CreateContainer()
         {
-            return new Container(
-                new Name("ContainerName"), 
-                new Description("Containers description")
-            );
+            return new Container("ContainerName","Container description");
         }
     }
 }

@@ -3,7 +3,7 @@ using BlueTrain.Containers;
 
 namespace BlueTrain.Terminal
 {
-    public class HoldingYard
+    public class HoldingYard : IHoldingYard
     {
         private readonly IList<Container> _containers;
 
