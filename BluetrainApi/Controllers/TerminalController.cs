@@ -40,9 +40,14 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("information/status")]
-        public TerminalStatus GetStatus()
+        [ProducesResponseType(typeof(TerminalStatusInformation), StatusCodes.Status200OK)]
+
+        public TerminalStatusInformation GetStatus()
         {
-            return  _terminal.Status;
+            return new TerminalStatusInformation
+            {
+                Status = Enum.GetName(_terminal.Status)
+            };
         }
     }
 }
