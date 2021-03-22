@@ -9,7 +9,11 @@ namespace BlueTrain.Terminal
         public string Name { get; }
         public string Description { get; }
         public Dictionary<string, string> Capabilities { get; }
-        public TerminalStatus Status { get; set; }
+        public TerminalStatus Status { get;  }
         public IHoldingYard HoldingYard { get;  }
+
+        // methods
+        public TerminalInformation GetTerminalInfo();
+
     }
 }

@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 using BlueTrain.Terminal;
 using BlueTrain.Shared;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
 namespace Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class TerminalController : ControllerBase
     {
         private readonly ILogger<TerminalController> _logger;
@@ -27,9 +31,11 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("information")]
-        public string GetInformation()
+        [ProducesResponseType(typeof(TerminalInformation), StatusCodes.Status200OK)]
+        public TerminalInformation GetInformation()
         {
-            return  $"Name: {_terminal.Name}; Description: {_terminal.Description}";
+            var info  = _terminal.GetTerminalInfo();
+            return info;
         }
 
         [HttpGet]
