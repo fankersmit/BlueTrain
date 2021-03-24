@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using BlueTrain.Containers;
+using BlueTrain.Shared;
 
 namespace BlueTrain.Terminal
 {
@@ -18,6 +20,17 @@ namespace BlueTrain.Terminal
             _containers = new List<Container>();
         }
 
+        // methods
+        public Container Find(Container c)
+        {
+            return _containers.SingleOrDefault(ctr => ctr == c);
+        }
+
+        public Container FindByInfo(ContainerInformation containerInfo)
+        {
+            return _containers.SingleOrDefault(ctr => ctr.Id == containerInfo.Id);
+
+        }
 
         public void Add(Container container)
         {

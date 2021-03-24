@@ -1,6 +1,7 @@
 using System;
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
+using BlueTrain.Containers;
 using BlueTrain.Shared;
 
 namespace BlueTrain.Terminal
@@ -18,6 +19,11 @@ namespace BlueTrain.Terminal
 
             // handling of containers
             HoldingYard = new HoldingYard();
+        }
+
+        public Terminal(TerminalDefinition td) :this(td.Name, td.Description,td.ID)
+        {
+            // additional initialisation goes here
         }
 
         // properties
@@ -63,13 +69,32 @@ namespace BlueTrain.Terminal
 
         public TerminalInformation GetTerminalInfo()
         {
-            return new TerminalInformation
+            return new(Id.ToString(),Name, Description, Enum.GetName(this.Status));
+        }
+
+        public void Receive(Container container)
+        {
+            HoldingYard.Add(container);
+        }
+
+        public void Send(Container container, Terminal nextTerminal)
+        {
+            // cargo can be changed through processing
+            var ctr = HoldingYard.Find(container);
+            if ( ctr != null)
             {
-                Name = this.Name,
-                Description = this.Description,
-                ID = this.Id.ToString(),
-                Status = Enum.GetName(this.Status)
-            };
+                HoldingYard.Remove(container);
+                nextTerminal.Receive(ctr);
+            }
+        }
+
+        public void Remove(ContainerInformation containerInfo)
+        {
+            var ctr = HoldingYard.FindByInfo(containerInfo);
+            if (ctr != null)
+            {
+                HoldingYard.Remove(ctr);
+            }
         }
     }
 }

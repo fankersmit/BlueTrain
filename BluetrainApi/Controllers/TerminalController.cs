@@ -30,6 +30,50 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [Route("is-open")]
+        [ProducesResponseType(typeof(Dictionary<string,string>), StatusCodes.Status200OK)]
+        public Dictionary<string,string> IsOpen()
+        {
+            var key= "isopen:";
+            string isOpen = _terminal.IsOpen().ToString().ToLower();
+            return new Dictionary<string, string> {{key, isOpen}};
+        }
+
+        [HttpGet]
+        [Route("is-closed")]
+        [ProducesResponseType(typeof(Dictionary<string,string>), StatusCodes.Status200OK)]
+        public Dictionary<string,string> IsClosed()
+        {
+            var key= "isclosed:";
+            var value = _terminal.IsClosed().ToString().ToLower();
+            return new Dictionary<string, string> {{key, value}};
+        }
+
+        [HttpGet]
+        [Route("open")]
+        [ProducesResponseType(typeof(TerminalStatusInformation), StatusCodes.Status200OK)]
+        public TerminalStatusInformation Open()
+        {
+            _terminal.Open();
+            return new TerminalStatusInformation
+            {
+                Status = Enum.GetName(_terminal.Status)
+            };
+        }
+
+        [HttpGet]
+        [Route("close")]
+        [ProducesResponseType(typeof(TerminalStatusInformation), StatusCodes.Status200OK)]
+        public TerminalStatusInformation Close()
+        {
+            _terminal.Close();
+            return new TerminalStatusInformation
+            {
+                Status = Enum.GetName(_terminal.Status)
+            };
+        }
+
+        [HttpGet]
         [Route("information")]
         [ProducesResponseType(typeof(TerminalInformation), StatusCodes.Status200OK)]
         public TerminalInformation GetInformation()
@@ -41,7 +85,6 @@ namespace Api.Controllers
         [HttpGet]
         [Route("information/status")]
         [ProducesResponseType(typeof(TerminalStatusInformation), StatusCodes.Status200OK)]
-
         public TerminalStatusInformation GetStatus()
         {
             return new TerminalStatusInformation

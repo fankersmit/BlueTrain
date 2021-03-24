@@ -7,6 +7,7 @@ namespace BluetrainTests
 {
     public class ContainerTests
     {
+
         [Fact]
         public void Container_IsEmpty_AfterCreation()
         {
@@ -26,7 +27,8 @@ namespace BluetrainTests
         // private factory method
         private Container CreateContainer()
         {
-            return new Container("ContainerName","Container description");
+            var ID = Guid.NewGuid();
+            return new Container( ID, "ContainerName","Container description");
         }
     }
 }

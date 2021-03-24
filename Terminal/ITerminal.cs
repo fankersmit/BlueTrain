@@ -14,6 +14,11 @@ namespace BlueTrain.Terminal
 
         // methods
         public TerminalInformation GetTerminalInfo();
+        public void Open();
+        public void Close();
+        public bool IsOpen();
+        public bool IsClosed();
+
 
     }
 }

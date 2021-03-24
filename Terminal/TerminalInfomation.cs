@@ -1,24 +1,22 @@
 using System;
+using Shared;
 
 namespace BlueTrain.Terminal
 {
-    public class TerminalInformation
+    public readonly struct TerminalInformation : ITerminalInformation
     {
         // fields
-        public string Name { get; set; }
-        public string Description{ get; set; }
-        public string ID{ get; set; }
-        public string Status{ get; set; }
+        public readonly string Name { get;  }
+        public readonly string Description{ get;  }
+        public readonly string ID{ get;  }
+        public readonly string Status{ get;  }
 
-        // ctor
-        /*
-        internal TerminalInformation(string name, string description, Guid Id, TerminalStatus status)
+        public TerminalInformation(string id, string name, string description, string status)
         {
             Name = name;
             Description = description;
-            ID = Id.ToString();
-            Status = Enum.GetName(status);
+            ID = id;
+            Status = status;
         }
-        */
     }
 }

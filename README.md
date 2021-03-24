@@ -27,6 +27,7 @@ classDiagram
         +Close() void
         +Receive( Container c ) bool 
         +Send( Terminal t,  Container c) bool  
+        +Remove( Container c) bool
         +IsOpen() bool 
         +IsProcessing() bool
         +IsReceiving() bool 

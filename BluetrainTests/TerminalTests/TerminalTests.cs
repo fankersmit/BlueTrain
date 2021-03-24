@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using BlueTrain.Terminal;
 using BlueTrain.Shared;
+using BlueTrain.Containers;
 
 
 namespace BlueTrainTests
@@ -10,14 +11,113 @@ namespace BlueTrainTests
     {
         private readonly string _terminalName;
         private readonly string _terminalDescription;
-        private readonly Guid _Id;
+        private readonly Guid _terminalId;
+
+        private readonly string _containerName;
+        private readonly string _containerDescription;
+        private readonly Guid _containerId;
 
         
         public TerminalTests()
         {
             _terminalName = "terminalName";
             _terminalDescription = "terminalDescription";
-            _Id = Guid.NewGuid();
+            _terminalId = Guid.NewGuid();
+
+            _containerName = "containerName";
+            _containerDescription = "containerDescription";
+            _containerId = Guid.NewGuid();
+        }
+
+        [Fact]
+        public void Send_Calls_Receive_On_Receiving_Terminal()
+        {
+            // arrange
+            var t1 = CreateTerminal();
+            var t2 = CreateTerminal(Guid.NewGuid());
+            var c = CreateContainer();
+            t1.Receive(c);
+            int containersInHoldingYard = t2.HoldingYard.Count;  // 0
+
+            // act
+            t1.Send(c, t2);
+            var actual = t2.HoldingYard.Count;
+
+            // assert, t2.Receive was called
+            Assert.True(actual == containersInHoldingYard + 1);
+        }
+
+        [Fact]
+        public void Send_Removes_Container_FromHoldingYard()
+        {
+            // arrange
+            var t1 = CreateTerminal();
+            var t2 = CreateTerminal(Guid.NewGuid());
+            var c = CreateContainer();
+            t1.Receive(c);
+            int containersInHoldingYard = t1.HoldingYard.Count;
+
+            // act
+            t1.Send(c, t2);
+            var actual = t1.HoldingYard.Count;
+
+            // assert
+            Assert.True(actual == containersInHoldingYard - 1);
+        }
+
+        [Fact]
+        public void Receive_Puts_Container_In_HoldingYard()
+        {
+            // arrange
+            var t = CreateTerminal();
+            var c = CreateContainer();
+            int containersInHoldingYard = t.HoldingYard.Count;
+            // act
+            t.Receive(c);
+            int actual = t.HoldingYard.Count;
+
+            // assert
+            Assert.True(actual == containersInHoldingYard + 1);
+        }
+
+        [Fact]
+        public void Remove_Clears_Container_From_HoldingYard()
+        {
+            // arrange
+            var t1 = CreateTerminal();
+            var c = CreateContainer();
+            t1.Receive(c);
+            int containersInHoldingYard = t1.HoldingYard.Count;
+
+            // act
+            t1.Remove(c.Information());
+            var actual = t1.HoldingYard.Count;
+
+            // assert
+            Assert.True(actual == containersInHoldingYard - 1);
+        }
+
+        [Fact]
+        public void Ctor_Uses_TerminalDefinition()
+        {
+            // arrange
+            var td = new TerminalDefinition
+            {
+                    Name = _terminalName,
+                    Description = _terminalDescription,
+                    ID = _terminalId,
+            };
+            var expected = true;
+
+            // act
+            var t = new Terminal(td);
+            var actual = t.IsClosed();
+
+            // assert
+            Assert.Equal(actual,expected);
+            Assert.Equal(t.Name, td.Name);
+            Assert.Equal(t.Description, td.Description);
+            Assert.Equal(t.Id, td.ID);
         }
 
         [Theory]
@@ -135,14 +235,25 @@ namespace BlueTrainTests
         }
 
         // private factory methods
+        #region private helper mthods
+        private Container CreateContainer()
+        {
+            return new Container(_containerId, _containerName, _containerDescription);
+        }
+
+        private Terminal CreateTerminal( Guid ID)
+        {
+            return new Terminal( _terminalName, _terminalDescription, ID);
+        }
+
         private Terminal CreateTerminal()
         {
-            return new Terminal( _terminalName, _terminalDescription, _Id);
+            return new Terminal( _terminalName, _terminalDescription, _terminalId);
         }
 
         private TestTerminal CreateTestTerminal( TerminalStatus status)
         {
-            return new TestTerminal( _terminalName, _terminalDescription, _Id, status);
+            return new TestTerminal( _terminalName, _terminalDescription, _terminalId, status);
         }
 
         class TestTerminal : Terminal
@@ -153,5 +264,6 @@ namespace BlueTrainTests
                 Status = status;
             }
         }
+        #endregion
     }
 }
