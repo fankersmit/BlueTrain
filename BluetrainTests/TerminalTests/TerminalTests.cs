@@ -39,9 +39,12 @@ namespace BlueTrainTests
             var t1 = CreateTerminal();
             var c1 = CreateContainer();
 
-            // act and assert
+            t1.Open();
+            t1.Receive(c1);
+
+            // act and  assert
             var  ex = Assert.Throws<InvalidOperationException>(() => t1.Send(c1));
-            Assert.Equal(expectedMessage, ex.Message);
+            Assert.Contains(expectedMessage, ex.Message);
         }
 
         [Fact]
@@ -90,11 +93,43 @@ namespace BlueTrainTests
             var expectedMessage = "Container unknown: Container not in holding yard.";
 
             // act
+            t1.Open();
             var  ex1 = Assert.Throws<InvalidOperationException>(() => t1.Send(c1));
             var  ex2 = Assert.Throws<InvalidOperationException>(() => t1.Send(c1, t2));
             // assert
-            Assert.Equal(expectedMessage, ex1.Message);
-            Assert.Equal(expectedMessage, ex2.Message);
+            Assert.Contains(expectedMessage, ex1.Message);
+            Assert.Contains(expectedMessage, ex2.Message);
+        }
+
+        [Fact]
+        public void Send_Fails_With_Exception_When_Terminal_Not_Open()
+        {
+            // arrange
+            var message = "Terminal is closed: Cannot send Container.";
+            var t1 = CreateTerminal();
+            var c1 = CreateContainer();
+
+            t1.Open();
+            t1.Receive(c1);
+            var expected = t1.HoldingYard.Count;
+
+            // act
+            t1.Close();
+            var  ex1 = Assert.Throws<InvalidOperationException>(() => t1.Send(c1));
+            var actual = t1.HoldingYard.Count;
+
+            // assert
+            Assert.Equal(expected, actual);
+            Assert.Contains(message, ex1.Message);
+        }
+
+        [Fact]
+        public void Receive_Fails_If_Terminal_Not_Open()
+        {
+            // arrange
+
+            // act
+            // assert
         }
 
         [Fact]

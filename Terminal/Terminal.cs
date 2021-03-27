@@ -68,7 +68,7 @@ namespace BlueTrain.Terminal
 
         public TerminalInformation GetTerminalInfo()
         {
-            return TerminalInformation.Create(null, Id, Name, Description, Status);
+            return TerminalInformation.Create(Address, Id, Name, Description, Status);
         }
 
         public void Receive(Container container)
@@ -81,19 +81,39 @@ namespace BlueTrain.Terminal
         {
             // cargo can be changed through processing
             var ctr = HoldingYard.Find(container);
-            if (ctr == null)
-            {
-                var message = "Container unknown: Container not in holding yard.";
-                throw new InvalidOperationException(message);
-            }
-            if (!ctr.HasRoutingSlip)
-            {
-                var message = "Destination unknown: Container has no routing slip,";
-                throw new InvalidOperationException(message);
-            }
+
+            // throws invalid operation exception
+            ValidateStatusAndContainer(ctr);
+
             var nextTerminal = container.RoutingSlip.GetNextDestination();
             HoldingYard.Remove(container);
             //nextTerminal.Receive( );
+        }
+
+        private void ValidateStatusAndContainer(Container container)
+        {
+            var errorCount = 0;
+            var message = string.Empty;
+
+            // only send if terminal is open and in service
+            if (Status != TerminalStatus.Open)
+            {
+                message += $"({++errorCount}) Terminal is closed: Cannot send Container.";
+            }
+
+            if (container == null)
+            {
+                message = $" ({++errorCount}) Container unknown: Container not in holding yard.";
+            }
+            else if (!container.HasRoutingSlip)
+            {
+                message += $" ({++errorCount}) Destination unknown: Container has no routing slip.";
+            }
+
+            if (errorCount > 0)
+            {
+                throw new InvalidOperationException(message);
+            }
         }
 
         // send container to a specific terminal, ignoring routing slip
@@ -101,13 +121,10 @@ namespace BlueTrain.Terminal
         {
             // cargo can be changed through processing
             var ctr = HoldingYard.Find(container);
-            if (ctr == null)
-            {
-                var message = "Container unknown: Container not in holding yard.";
-                throw new InvalidOperationException(message);
-            }
+            ValidateStatusAndContainer(ctr);
+
             HoldingYard.Remove(container);
-            nextTerminal.Receive(ctr);
+            //nextTerminal.Receive(ctr);
         }
 
         public void Remove(ContainerInformation containerInfo)
