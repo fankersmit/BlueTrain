@@ -1,13 +1,11 @@
 using System;
 using BlueTrain.Containers;
-using BlueTrain.Shared;
 using Xunit;
 
 namespace BluetrainTests
 {
     public class ContainerTests
     {
-
         [Fact]
         public void Container_IsEmpty_AfterCreation()
         {

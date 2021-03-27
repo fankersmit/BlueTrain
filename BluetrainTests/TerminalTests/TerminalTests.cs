@@ -54,6 +54,10 @@ namespace BlueTrainTests
             var t1 = CreateTerminal();
             var t2 = CreateTerminal(Guid.NewGuid());
             var c = CreateContainer();
+            var rs = new RoutingSlip(c.Information());
+            c.RoutingSlip = rs;
+
+            t1.Open();
             t1.Receive(c);
             int containersInHoldingYard = t2.HoldingYard.Count;  // 0
 
@@ -72,6 +76,10 @@ namespace BlueTrainTests
             var t1 = CreateTerminal();
             var t2 = CreateTerminal(Guid.NewGuid());
             var c = CreateContainer();
+            var rs = new RoutingSlip(c.Information());
+            c.RoutingSlip = rs;
+
+            t1.Open();
             t1.Receive(c);
             int containersInHoldingYard = t1.HoldingYard.Count;
 
@@ -264,7 +272,7 @@ namespace BlueTrainTests
         }
 
         // private factory methods
-        #region private helper mthods
+        #region private helper methods
         private Container CreateContainer()
         {
             return new Container(_containerId, _containerName, _containerDescription);

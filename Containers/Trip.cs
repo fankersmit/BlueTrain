@@ -8,8 +8,10 @@ namespace BlueTrain.Containers
         // fields
         public readonly ITerminalInformation DepartureTerminal;
         public readonly ITerminalInformation DestinationTerminal;
+        private readonly Guid _Id;
 
         // properties
+        public Guid ID => _Id;
         public bool IsDone { get; private set; }
         public DateTime DepartedOn { get; set;  }
         public DateTime ArrivedOn { get; set;  }
@@ -17,11 +19,12 @@ namespace BlueTrain.Containers
         // ctors
         public Trip(ITerminalInformation departureTerminal, ITerminalInformation destinationTerminal)
         {
-            // throws argumnent exception on failure
+            // throws argument exception on failure
             ValidateArguments(departureTerminal, destinationTerminal); 
 
             DepartureTerminal = departureTerminal;
             DestinationTerminal = destinationTerminal;
+            _Id = Guid.NewGuid();
             IsDone = false;
         }
 

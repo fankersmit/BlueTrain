@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BlueTrain.Containers;
@@ -21,11 +22,17 @@ namespace BlueTrain.Terminal
         }
 
         // methods
+
+        // return null if not found
+        // finding does not remove container from yard
+
         public Container Find(Container c)
         {
             return _containers.SingleOrDefault(ctr => ctr.Id == c.Id);
         }
 
+        // return null if not found
+        // finding does not remove container from yard
         public Container FindByInfo(ContainerInformation containerInfo)
         {
             return _containers.SingleOrDefault(ctr => ctr.Id == containerInfo.Id);
@@ -34,6 +41,13 @@ namespace BlueTrain.Terminal
 
         public void Add(Container container)
         {
+            var ctr = _containers.FirstOrDefault(c => c.Id == container.Id);
+            var message = $"Container with ID: {container.Id} already in yard: Cannot add container.";
+
+            if (ctr != null)
+            {
+                throw new ArgumentException(message);
+            }
             _containers.Add(container);
         }
 

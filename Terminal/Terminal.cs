@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using BlueTrain.Containers;
 using BlueTrain.Shared;
@@ -9,12 +8,12 @@ namespace BlueTrain.Terminal
     public class Terminal : ITerminal
     {
         // ctor
-        public Terminal(Uri address, string name, string description, Guid Identifier)
+        public Terminal(Uri address, string name, string description, Guid identifier)
         {
             Address = address;
             Name = name;
             Description = description;
-            Id = Identifier;
+            Id = identifier;
             Status = TerminalStatus.Closed;
             Capabilities = new Dictionary<string, string>();
 
@@ -124,7 +123,7 @@ namespace BlueTrain.Terminal
             ValidateStatusAndContainer(ctr);
 
             HoldingYard.Remove(container);
-            //nextTerminal.Receive(ctr);
+            nextTerminal.Receive(ctr);
         }
 
         public void Remove(ContainerInformation containerInfo)
