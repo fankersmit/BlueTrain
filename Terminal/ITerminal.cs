@@ -1,10 +1,12 @@
 using  System;
 using System.Collections.Generic;
+using  BlueTrain.Shared;
 
 namespace BlueTrain.Terminal
 {
     public interface ITerminal
     {
+        public Uri Address { get;  }
         public Guid Id { get; }
         public string Name { get; }
         public string Description { get; }

@@ -1,9 +1,14 @@
-namespace Shared
+using System;
+
+
+namespace BlueTrain.Shared
 {
     public interface ITerminalInformation
     {
+        public Uri Address { get; }
         public string Name { get; }
         public string Description { get; }
-        public string ID { get; }
+        public Guid ID { get; }
+        public TerminalStatus Status { get; }
     }
 }

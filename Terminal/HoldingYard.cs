@@ -23,7 +23,7 @@ namespace BlueTrain.Terminal
         // methods
         public Container Find(Container c)
         {
-            return _containers.SingleOrDefault(ctr => ctr == c);
+            return _containers.SingleOrDefault(ctr => ctr.Id == c.Id);
         }
 
         public Container FindByInfo(ContainerInformation containerInfo)

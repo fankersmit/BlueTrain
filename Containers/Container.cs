@@ -12,6 +12,8 @@ namespace BlueTrain.Containers
         public ContainerStatus Status { get; set; }
         public RoutingSlip RoutingSlip { get; set; }
 
+        public bool HasRoutingSlip => RoutingSlip != null;
+
         public Container(Guid ID, string name , string description )
         {
             Name = name;

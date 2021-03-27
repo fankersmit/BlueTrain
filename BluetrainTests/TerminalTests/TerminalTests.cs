@@ -12,6 +12,7 @@ namespace BlueTrainTests
         private readonly string _terminalName;
         private readonly string _terminalDescription;
         private readonly Guid _terminalId;
+        private readonly Uri _terminalUri;
 
         private readonly string _containerName;
         private readonly string _containerDescription;
@@ -20,6 +21,7 @@ namespace BlueTrainTests
         
         public TerminalTests()
         {
+            _terminalUri = new Uri("http://bluertrain.nl/api");
             _terminalName = "terminalName";
             _terminalDescription = "terminalDescription";
             _terminalId = Guid.NewGuid();
@@ -30,7 +32,20 @@ namespace BlueTrainTests
         }
 
         [Fact]
-        public void Send_Calls_Receive_On_Receiving_Terminal()
+        public void Send_Container_Fails_With_Exception_If_RoutingSlip_Not_Present()
+        {
+            // arrange
+            var expectedMessage = "Destination unknown: Container has no routing slip.";
+            var t1 = CreateTerminal();
+            var c1 = CreateContainer();
+
+            // act and assert
+            var  ex = Assert.Throws<InvalidOperationException>(() => t1.Send(c1));
+            Assert.Equal(expectedMessage, ex.Message);
+        }
+
+        [Fact]
+        public void Send_To_Terminal_Calls_Receive_On_Receiving_Terminal()
         {
             // arrange
             var t1 = CreateTerminal();
@@ -66,6 +81,23 @@ namespace BlueTrainTests
         }
 
         [Fact]
+        public void Send_Fails_With_Exception_When_Container_Not_In_HoldingYard()
+        {
+            // arrange
+            var t1 = CreateTerminal(); // holdingYard is empty
+            var t2 = CreateTerminal(Guid.NewGuid());
+            var c1 = CreateContainer();
+            var expectedMessage = "Container unknown: Container not in holding yard.";
+
+            // act
+            var  ex1 = Assert.Throws<InvalidOperationException>(() => t1.Send(c1));
+            var  ex2 = Assert.Throws<InvalidOperationException>(() => t1.Send(c1, t2));
+            // assert
+            Assert.Equal(expectedMessage, ex1.Message);
+            Assert.Equal(expectedMessage, ex2.Message);
+        }
+
+        [Fact]
         public void Receive_Puts_Container_In_HoldingYard()
         {
             // arrange
@@ -95,29 +127,6 @@ namespace BlueTrainTests
 
             // assert
             Assert.True(actual == containersInHoldingYard - 1);
-        }
-
-        [Fact]
-        public void Ctor_Uses_TerminalDefinition()
-        {
-            // arrange
-            var td = new TerminalDefinition
-            {
-                    Name = _terminalName,
-                    Description = _terminalDescription,
-                    ID = _terminalId,
-            };
-            var expected = true;
-
-            // act
-            var t = new Terminal(td);
-            var actual = t.IsClosed();
-
-            // assert
-            Assert.Equal(actual,expected);
-            Assert.Equal(t.Name, td.Name);
-            Assert.Equal(t.Description, td.Description);
-            Assert.Equal(t.Id, td.ID);
         }
 
         [Theory]
@@ -186,21 +195,6 @@ namespace BlueTrainTests
             Assert.True(actualStatus == expected);
         }
 
-
-        [Fact]
-        public void Information_IsFullyInitialized()
-        {
-            // arrange
-            var terminal = CreateTerminal();
-            // act
-            var information = terminal.GetTerminalInfo();
-            // assert
-            Assert.Equal(information.Name, terminal.Name );
-            Assert.Equal(information.Description, terminal.Description );
-            Assert.Equal(information.ID, terminal.Id.ToString() );
-            Assert.Equal(information.Status, Enum.GetName(terminal.Status) );
-        }
-
         [Fact]
         public void Terminal_State_IsClosed_OnCreation()
         {
@@ -243,23 +237,23 @@ namespace BlueTrainTests
 
         private Terminal CreateTerminal( Guid ID)
         {
-            return new Terminal( _terminalName, _terminalDescription, ID);
+            return new Terminal( _terminalUri , _terminalName, _terminalDescription, ID);
         }
 
         private Terminal CreateTerminal()
         {
-            return new Terminal( _terminalName, _terminalDescription, _terminalId);
+            return new Terminal(_terminalUri, _terminalName, _terminalDescription, _terminalId);
         }
 
         private TestTerminal CreateTestTerminal( TerminalStatus status)
         {
-            return new TestTerminal( _terminalName, _terminalDescription, _terminalId, status);
+            return new TestTerminal( _terminalUri, _terminalName, _terminalDescription, _terminalId, status);
         }
 
         class TestTerminal : Terminal
         {
-            public TestTerminal(string name, string description, Guid Identifier, TerminalStatus status)
-                : base( name,  description,  Identifier)
+            public TestTerminal(Uri address, string name, string description, Guid Identifier, TerminalStatus status)
+                : base( address, name,  description,  Identifier)
             {
                 Status = status;
             }

@@ -26,7 +26,7 @@ namespace Api.Controllers
         {
             _logger = logger;
             _settings = terminalSettings.Value;
-            _terminal = new Terminal(_settings.Name, _settings.Description, _settings.Id);
+            _terminal = new Terminal(_settings.Address, _settings.Name, _settings.Description, _settings.Id);
         }
 
         [HttpGet]

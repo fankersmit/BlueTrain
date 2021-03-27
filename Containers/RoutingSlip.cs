@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,5 +9,10 @@ namespace BlueTrain.Containers
     {
         public readonly ContainerInformation ContainerInformation;
         public List<Trip> Trips;
+
+        public ITerminalInformation GetNextDestination()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
