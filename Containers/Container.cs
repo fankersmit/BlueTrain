@@ -11,6 +11,7 @@ namespace BlueTrain.Containers
         public string Description { get; }
         public ContainerStatus Status { get; set; }
         public RoutingSlip RoutingSlip { get; set; }
+        public DateTime CreatedOn { get; }
 
         public bool HasRoutingSlip => RoutingSlip != null;
 
@@ -21,11 +22,12 @@ namespace BlueTrain.Containers
             Id = ID;
             Status = ContainerStatus.Empty;
             RoutingSlip = null;
+            CreatedOn = DateTime.UtcNow;
         }
 
         public ContainerInformation Information()
         {
-            return new (Id, Name, Description);
+            return new (Id, Name, Description, CreatedOn);
         }
     }
 }

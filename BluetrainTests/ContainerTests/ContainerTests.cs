@@ -2,10 +2,22 @@ using System;
 using BlueTrain.Containers;
 using Xunit;
 
-namespace BluetrainTests
+namespace BlueTrainTests
 {
     public class ContainerTests
     {
+        [Fact]
+        public void Container_Has_CreatedOn_Initialized()
+        {
+            // arrange
+            var startDateTime = DateTime.UtcNow;
+            // act
+            var container = CreateContainer();
+            // assert
+            Assert.False(DateTime.MinValue== container.CreatedOn); // not initialized
+            Assert.True(startDateTime < container.CreatedOn); // wrongly initialized
+        }
+
         [Fact]
         public void Container_IsEmpty_AfterCreation()
         {

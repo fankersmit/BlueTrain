@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using BlueTrain.Containers;
@@ -84,7 +83,6 @@ namespace BlueTrainTests
             Assert.True(rs.Trips.Contains(trip1));
             Assert.True(rs.Trips.Contains(trip2));
         }
-
 
         // private helper methods
         private RoutingSlip CreateRoutingSlip()
