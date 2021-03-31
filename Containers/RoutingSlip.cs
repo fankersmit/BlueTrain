@@ -42,6 +42,7 @@ namespace BlueTrain.Containers
             }
         }
 
+        // get the next destination to send container
         public ITerminalInformation GetNextDestination()
         {
             throw new NotImplementedException();
