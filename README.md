@@ -19,18 +19,18 @@ A terminal is accessible through its REST-API. This project provides the interfa
 
 |done|style|CQ|path | verb | success | Error | body |description|
 |:---:|:---:|:---:|:---|:---:|:---:|:---:|---:|:---|
-|<span style="color:green">Yes</span>|RPC|Q|root/terminal/is-open|GET|200|400|json| Is terminal open and accepting  containers|
-|<span style="color:green">Yes</span>|RPC|Q|root/terminal/is-closed|GET|200|400|json| Is terminal closed, not accepting or processing containers|
-|<span style="color:green">Yes</span>|RPC|Q|root/terminal/status|GET|200|400|json| report current status terminal|
-|<span style="color:green">Yes</span>|RPC|C|root/terminal/open|POST|200|400|empty| open a  closed terminal to accept an process containers|
-|<span style="color:green">Yes</span>|RPC|C|root/terminal/close|POST|200|400|empty| closean open terminal. When closed it accepts no containers, and doesn't process them|
-|<span style="color:green">Yes</span>|RPC|C|root/terminal/information|GET|200|400|json| report on id, version and capabiltiies of a terminal|
-|<span style="color:yellow">No</span>|RPC|Q|root/terminal/holdingyard/information|GET|200|400|json| report on id, version  of a oldingyard|
-|<span style="color:yellow">No</span>|RPC|Q|root/terminal/holdingyard/is-empty|GET|200|400|json| true if no containers are in the yard|
-|<span style="color:yellow">No</span>|RPC|Q|root/terminal/holdingyard/is-filled|GET|200|400|json| true if yard is filled to capacity|
-|<span style="color:yellow">No</span>|RPC|Q|root/terminal/holdingyard/capacity|GET|200|400|json| reports number of container the yard can hold|
-|<span style="color:yellow">No</span>|RPC|Q|root/terminal/holdingyard/containers/count|GET|200|400|json| reports number of container in the yard|
-|<span style="color:yellow">No</span>|RPC|Q|root/terminal/holdingyard/containers/{ID}|GET|200|400|json| reports number of container in the yard|
+|<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/is-open|GET|200|400|json| Is terminal open and accepting  containers|
+|<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/is-closed|GET|200|400|json| Is terminal closed, not accepting or processing containers|
+|<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/status|GET|200|400|json| report current status terminal|
+|<span style="color:green">Yes</span>|RPC|C|root/v1/terminal/open|POST|200|400|empty| open a  closed terminal to accept an process containers|
+|<span style="color:green">Yes</span>|RPC|C|root/v1/terminal/close|POST|200|400|empty| closean open terminal. When closed it accepts no containers, and doesn't process them|
+|<span style="color:green">Yes</span>|RPC|C|root/v1/terminal/information|GET|200|400|json| report on id, version and capabiltiies of a terminal|
+|<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/information|GET|200|400|json| report on id, version  of a oldingyard|
+|<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/is-empty|GET|200|400|json| true if no containers are in the yard|
+|<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/is-filled|GET|200|400|json| true if yard is filled to capacity|
+|<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/capacity|GET|200|400|json| reports number of container the yard can hold|
+|<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/containers/count|GET|200|400|json| reports number of container in the yard|
+|<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/containers/{ID}|GET|200|400|json| reports number of container in the yard|
 
 
 
