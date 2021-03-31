@@ -5,15 +5,15 @@ using BlueTrain.Shared;
 
 namespace BlueTrain.Terminal
 {
-    public readonly struct TerminalInformation : ITerminalInformation
+    public class TerminalInformation : ITerminalInformation
     {
         // fields
-        public readonly Uri Address { get;  }
-        public readonly string Name { get;  }
-        public readonly string Description{ get;  }
-        public readonly Guid ID{ get;  }
-        public readonly TerminalStatus Status{ get;  }
-        public readonly DateTime TimeStamp;
+        public Uri Address { get;  }
+        public string Name { get;  }
+        public string Description{ get;  }
+        public Guid ID{ get;  }
+        public TerminalStatus Status{ get;  }
+        public DateTime TimeStamp;
 
         private TerminalInformation(Uri address, Guid id, string name, string description, TerminalStatus status)
         {

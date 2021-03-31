@@ -139,10 +139,11 @@ namespace BlueTrainTests
             return new Tuple<TerminalInformation, TerminalInformation>( departure, destination);
         }
 
-        Trip CreateValidTrip()
+        Trip CreateValidTrip( bool hasStartingTerminal = true)
         {
             var ti = CreateDepartureAndDestination();
-            return new Trip( ti.Item1, ti.Item2);
+            TerminalInformation start = hasStartingTerminal ? ti.Item1 : null;
+            return new Trip( start, ti.Item2);
         }
     }
 }
