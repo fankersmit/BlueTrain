@@ -32,6 +32,18 @@ namespace BlueTrainTests
         }
 
         [Fact]
+        public void Null_Destination_Throws_ArgumentExceptionITerminal()
+        {
+            // arrange
+            ITerminalInformation destinationTerminal = null;
+            var expectedMessage = "Destination cannot be null.";
+            // act
+            var ex = Assert.Throws<ArgumentException>(() => new Trip(destinationTerminal));
+            // assert
+            Assert.Equal(expectedMessage, ex.Message);
+        }
+
+        [Fact]
         public void Equal_Departure_And_Destination_Throws_ArgumentException()
         {
             // arrange
@@ -94,8 +106,34 @@ namespace BlueTrainTests
             Assert.True(trip.IsDone);
         }
 
+        [Theory]
+        [InlineData(true, true)]
+        [InlineData(false, true)]
+        public void New_Trip_Always_Has_End(bool hasStart, bool hasEnd )
+        {
+            // arrange,  act
+            var trip = CreateValidTrip(hasStart);
+
+            // assert
+            Assert.Equal( hasStart, trip.DepartureTerminal != null );
+            Assert.Equal (hasEnd, trip.DestinationTerminal != null );
+        }
+
         [Fact]
-        public void New_Trip_Has_Start_And_End()
+        public void New_Trip_Can_Have_Null_Start()
+        {
+            // arrange,  act
+            var destinationTerminal = CreateDepartureAndDestination().Item2;
+            var trip =  new Trip(destinationTerminal);
+
+            // assert
+            Assert.Null(trip.DepartureTerminal);
+            Assert.NotNull(trip.DestinationTerminal);
+        }
+
+
+        [Fact]
+        public void New_Default_Trip_Has_Start_And_End()
         {
             // arrange,  act
             var trip = CreateValidTrip();
@@ -139,11 +177,10 @@ namespace BlueTrainTests
             return new Tuple<TerminalInformation, TerminalInformation>( departure, destination);
         }
 
-        Trip CreateValidTrip( bool hasStartingTerminal = true)
+        private Trip CreateValidTrip( bool hasStartingTerminal = true)
         {
             var ti = CreateDepartureAndDestination();
-            TerminalInformation start = hasStartingTerminal ? ti.Item1 : null;
-            return new Trip( start, ti.Item2);
+            return hasStartingTerminal ? new Trip(ti.Item1, ti.Item2) : new Trip(ti.Item2);
         }
     }
 }

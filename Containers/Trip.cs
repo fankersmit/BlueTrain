@@ -42,7 +42,7 @@ namespace BlueTrain.Containers
         {
             string message = string.Empty;
 
-            if (destination == null)
+            if( destination == null )
             {
                 message = "Destination cannot be null.";
                 throw new ArgumentException(message);
