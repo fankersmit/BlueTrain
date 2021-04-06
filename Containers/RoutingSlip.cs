@@ -43,9 +43,20 @@ namespace BlueTrain.Containers
         }
 
         // get the next destination to send container
+        // if none is found, returns null
         public ITerminalInformation GetNextDestination()
         {
-            throw new NotImplementedException();
+            ITerminalInformation terminalInformation = null;
+            // loop through trips
+            foreach (var trip in _trips)
+            {
+                if (!trip.IsDone)
+                {
+                    terminalInformation = trip.DestinationTerminal;
+                    break;
+                }
+            }
+            return terminalInformation;
         }
 
         // private helper methods

@@ -9,6 +9,6 @@ namespace BlueTrain.Shared
         public string Name { get; }
         public string Description { get; }
         public Guid ID { get; }
-        public TerminalStatus Status { get; }
+        public string Status { get; }
     }
 }

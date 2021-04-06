@@ -25,10 +25,16 @@ namespace BlueTrain.Terminal
 
         // return null if not found
         // finding does not remove container from yard
-
         public Container Find(Container c)
         {
             return _containers.SingleOrDefault(ctr => ctr.Id == c.Id);
+        }
+
+        // return null if not found
+        // finding does not remove container from yard
+        public Container Find(Guid ID)
+        {
+            return _containers.SingleOrDefault(ctr => ctr.Id == ID);
         }
 
         // return null if not found

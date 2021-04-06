@@ -1,32 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
+using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Text.Json;
+using BlueTrain.Containers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
-using BlueTrain.Terminal;
-using BlueTrain.Shared;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using BlueTrain.Terminal;
+using Microsoft.AspNetCore.Http;
+
 
 namespace Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [Produces("application/json")]
     public class TerminalController : ControllerBase
     {
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<TerminalController> _logger;
         private readonly TerminalSettings _settings;
         private readonly ITerminal _terminal;
 
-        public TerminalController(ILogger<TerminalController> logger, IOptions<TerminalSettings> terminalSettings)
+        // ctor
+        public TerminalController(
+            IHttpClientFactory httpClientFactory,
+            ILogger<TerminalController> logger,
+            IOptions<TerminalSettings> terminalSettings)
         {
             _logger = logger;
             _settings = terminalSettings.Value;
+
+            // added as singleton
             _terminal = new Terminal(_settings.Address, _settings.Name, _settings.Description, _settings.Id);
+
+            // Create httpClients for sending containers
+            _httpClientFactory = httpClientFactory;
+        }
+
+        // methods
+        [HttpPost]
+        [Route("receive")]
+        [ProducesResponseType( StatusCodes.Status201Created)]
+        [ProducesResponseType( StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public IActionResult Receive([FromBody] object container  )
+        {
+            var ctr = JsonSerializer.Deserialize<Container>(container.ToString());
+            Guid containerID = ctr.Id;
+
+            // check if terminal is open  -> 403
+            if (_terminal.IsClosed())
+            {
+                //return Forbid(); // 403, turned into 404 by ASP.NET Core's authentication logic
+                return StatusCode(403);
+            }
+
+            // check if container is already in yard -> 403
+            if( _terminal.HoldingYard.Find(containerID) != null )
+            {
+                //return Forbid();
+                return StatusCode(403);
+            }
+
+            // put container in yard -> created 201
+            _terminal.HoldingYard.Add(ctr);
+            var message = $"Container {containerID} added to holding yard";
+            return Ok(message); // Created();
         }
 
         [HttpGet]
@@ -49,7 +91,7 @@ namespace Api.Controllers
             return new Dictionary<string, string> {{key, value}};
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("open")]
         [ProducesResponseType(typeof(TerminalStatusInformation), StatusCodes.Status200OK)]
         public TerminalStatusInformation Open()
@@ -61,7 +103,7 @@ namespace Api.Controllers
             };
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("close")]
         [ProducesResponseType(typeof(TerminalStatusInformation), StatusCodes.Status200OK)]
         public TerminalStatusInformation Close()

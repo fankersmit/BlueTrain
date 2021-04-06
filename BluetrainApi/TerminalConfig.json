@@ -2,5 +2,6 @@
     "Address": "https://bluetrain.nl/api",
     "Name": "Basic Terminal",
     "Description": "A basic terminal with no capabilities.",
-    "Id" :  "0B3ACCAD-1116-401B-86B7-48FEBBDAC615"
+    "Id" :  "0B3ACCAD-1116-401B-86B7-48FEBBDAC615",
+    "Version": "v1"
 }

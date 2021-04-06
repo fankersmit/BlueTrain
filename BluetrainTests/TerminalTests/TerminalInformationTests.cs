@@ -57,13 +57,14 @@ namespace BlueTrainTests
             // act, Assert
             var ci = TerminalInformation.Create(_terminalUri,_ID,_name,_description,_status);
             var now = DateTime.UtcNow;
+            var status = Enum.GetName(_status);
 
             // assert
             Assert.Equal(_terminalUri, ci.Address);
             Assert.Equal(_name, ci.Name);
             Assert.Equal(_description, ci.Description);
             Assert.Equal(_Id, ci.ID);
-            Assert.Equal(_status, ci.Status);
+            Assert.Equal(status, ci.Status);
             Assert.True( ci.TimeStamp <= now);
         }
     }

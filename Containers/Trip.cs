@@ -69,9 +69,9 @@ namespace BlueTrain.Containers
 
         public void Depart()
         {
-            if (ArrivedOn != DateTime.MinValue)
+            if (IsDone | ArrivedOn != DateTime.MinValue)
             {
-                var message = "Exception: You cannot depart after leaving.";
+                var message = "Exception: You cannot depart after leaving, or trip is done.";
                 throw new InvalidOperationException(message);
             }
             DepartedOn = DateTime.UtcNow;

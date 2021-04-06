@@ -11,6 +11,43 @@ namespace BlueTrainTests
 {
     public class RoutingSlipTests
     {
+        [Theory]
+        [InlineData(0, true)]
+        [InlineData(1, true)]
+        [InlineData(2, true)]
+        [InlineData(3, false)]
+        public void Can_Determine_Next_Destination(int tripsCompleted, bool notNull)
+        {
+            // arrange
+            var t1 = CreateValidTrip();
+            var t2 = CreateValidTrip();
+            var t3 = CreateValidTrip();
+            IList<Trip> trips = new List<Trip>() {t1, t2, t3};
+            var rs = CreateRoutingSlip();
+            rs.Add(trips);
+
+            for (var  idx = 0; idx < tripsCompleted; idx++ )
+            {
+                // do the trip, sets  is done
+                trips[idx].Depart();
+                trips[idx].Arrive();
+            }
+            // act
+            var nextTerminal = rs.GetNextDestination();
+
+            // assert
+            Assert.Equal(notNull, nextTerminal != null);
+            if (notNull)
+            {
+                Assert.Equal(trips[tripsCompleted].DestinationTerminal, nextTerminal);
+            }
+            else
+            {
+                Assert.Null( nextTerminal);
+            }
+        }
+
+
         [Fact]
         public void New_RoutingSlip_Is_Initialized()
         {
@@ -29,7 +66,7 @@ namespace BlueTrainTests
         }
 
         [Fact]
-        public void Cannot_Add_Same_Trip_Again_Throws_ArgumentException()
+        public void Adding_Same_Trip_Again_Throws_ArgumentException()
         {
             // arrange
             var pattern  = new Regex("Trip with ID: \\([0-9a-z-]+\\) already in journey: Cannot add trip\\.");

@@ -12,7 +12,7 @@ namespace BlueTrain.Terminal
         public string Name { get;  }
         public string Description{ get;  }
         public Guid ID{ get;  }
-        public TerminalStatus Status{ get;  }
+        public string Status{ get;  }
         public DateTime TimeStamp;
 
         private TerminalInformation(Uri address, Guid id, string name, string description, TerminalStatus status)
@@ -21,7 +21,7 @@ namespace BlueTrain.Terminal
             Name = name;
             Description = description;
             ID = id;
-            Status = status;
+            Status = Enum.GetName(status);
             TimeStamp = DateTime.UtcNow;
         }
 

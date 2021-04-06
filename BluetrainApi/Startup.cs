@@ -1,17 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Api.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+
+using Api.Controllers;
+using BlueTrain.Terminal;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Api
 {
@@ -28,6 +24,9 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<TerminalSettings>(Configuration);
+            services.AddHttpClient();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
             services.AddControllers()
                 .AddJsonOptions(options =>
                     options.JsonSerializerOptions.PropertyNamingPolicy = null);
@@ -46,6 +45,7 @@ namespace Api
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

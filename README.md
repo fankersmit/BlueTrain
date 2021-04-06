@@ -21,10 +21,12 @@ A terminal is accessible through its REST-API. This project provides the interfa
 |:---:|:---:|:---:|:---|:---:|:---:|:---:|---:|:---|
 |<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/is-open|GET|200|400|json| Is terminal open and accepting  containers|
 |<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/is-closed|GET|200|400|json| Is terminal closed, not accepting or processing containers|
-|<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/status|GET|200|400|json| report current status terminal|
 |<span style="color:green">Yes</span>|RPC|C|root/v1/terminal/open|POST|200|400|empty| open a  closed terminal to accept an process containers|
 |<span style="color:green">Yes</span>|RPC|C|root/v1/terminal/close|POST|200|400|empty| closean open terminal. When closed it accepts no containers, and doesn't process them|
-|<span style="color:green">Yes</span>|RPC|C|root/v1/terminal/information|GET|200|400|json| report on id, version and capabiltiies of a terminal|
+|<span style="color:yellow">No</span>|RPC|C|root/v1/terminal/send{ContainerID}|POST|201, 202|400, 403, 404|container| Send a containter with ID ContainerID to next terminal retrieved form routingslip|
+|<span style="color:yellow">No</span>|RPC|C|root/v1/terminal/receive/{ContainerID}|POST|201, 202|400, 403|container|Receive a container with ID ContainerID|
+|<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/information|GET|200|400|json| report on id, version and capabiltiies of a terminal|
+|<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/information/status|GET|200|400|json| report current status terminal|
 |<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/information|GET|200|400|json| report on id, version  of a oldingyard|
 |<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/is-empty|GET|200|400|json| true if no containers are in the yard|
 |<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/is-filled|GET|200|400|json| true if yard is filled to capacity|

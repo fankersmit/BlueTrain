@@ -1,3 +1,4 @@
+using System;
 using BlueTrain.Containers;
 using BlueTrain.Shared;
 
@@ -10,6 +11,7 @@ namespace BlueTrain.Terminal
         void Add(Container container);
         void Remove(Container container);
         Container Find(Container container);
+        Container Find(Guid containerID);
         Container FindByInfo(ContainerInformation containerInfo);
     }
 }

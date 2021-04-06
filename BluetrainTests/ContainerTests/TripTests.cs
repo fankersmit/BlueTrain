@@ -69,6 +69,22 @@ namespace BlueTrainTests
         }
 
         [Fact]
+        public void Departing_After_Arriving_Throws_InvalidOperationException()
+        {
+            // arrange
+            var message = "Exception: You cannot depart after leaving, or trip is done.";
+            var trip = CreateValidTrip();
+            trip.Depart();
+            trip.Arrive();
+
+            // act
+            var  ex = Assert.Throws<InvalidOperationException>( () => trip.Depart() );
+            // assert
+            Assert.Equal(message, ex.Message);
+        }
+
+
+        [Fact]
         public void Arriving_Before_Departing_Throws_InvalidOperationException()
         {
             // arrange

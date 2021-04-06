@@ -32,19 +32,18 @@ namespace BlueTrainTests
         }
 
         [Fact]
-        public void Send_Container_Fails_With_Exception_If_RoutingSlip_Not_Present()
+        public void GetTerminalInfo_Returns_Valid_TerminalInformation()
         {
             // arrange
-            var expectedMessage = "Destination unknown: Container has no routing slip.";
             var t1 = CreateTerminal();
-            var c1 = CreateContainer();
-
-            t1.Open();
-            t1.Receive(c1);
-
-            // act and  assert
-            var  ex = Assert.Throws<InvalidOperationException>(() => t1.Send(c1));
-            Assert.Contains(expectedMessage, ex.Message);
+            // act
+            var terminalInfo = t1.GetTerminalInfo();
+            // assert
+            Assert.IsType<TerminalInformation>(terminalInfo);
+            Assert.Equal(_terminalName, terminalInfo.Name);
+            Assert.Equal(_terminalDescription, terminalInfo.Description);
+            Assert.Equal(_terminalUri,  terminalInfo.Address);
+            Assert.Equal(_terminalId, terminalInfo.ID);
         }
 
         [Fact]
@@ -89,6 +88,22 @@ namespace BlueTrainTests
 
             // assert
             Assert.True(actual == containersInHoldingYard - 1);
+        }
+
+        [Fact]
+        public void Send_Fails_With_Exception_If_RoutingSlip_Not_Present()
+        {
+            // arrange
+            var expectedMessage = "Destination unknown: Container has no routing slip.";
+            var t1 = CreateTerminal();
+            var c1 = CreateContainer();
+
+            t1.Open();
+            t1.Receive(c1);
+
+            // act and  assert
+            var  ex = Assert.Throws<InvalidOperationException>(() => t1.Send(c1));
+            Assert.Contains(expectedMessage, ex.Message);
         }
 
         [Fact]
