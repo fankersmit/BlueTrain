@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,16 @@ namespace Api
                 .AddJsonOptions(options =>
                     options.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "BluetTrain BluetrainApi", Version = "v1"}); });
+
+            // create the one terminal to use
+            var config = Configuration.GetSection("TerminalConfig");
+            Terminal terminal = new Terminal(
+                new Uri(config["Address"]),
+                config["Name"],
+                config["Description"],
+                Guid.Parse(config["Id"]));
+
+            services.AddSingleton<ITerminal>(terminal);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

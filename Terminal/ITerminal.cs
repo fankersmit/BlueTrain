@@ -1,5 +1,6 @@
 using  System;
 using System.Collections.Generic;
+using BlueTrain.Containers;
 using  BlueTrain.Shared;
 
 namespace BlueTrain.Terminal
@@ -20,6 +21,7 @@ namespace BlueTrain.Terminal
         public void Close();
         public bool IsOpen();
         public bool IsClosed();
+        public void Receive(Container container);
 
 
     }

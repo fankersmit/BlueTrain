@@ -26,6 +26,7 @@ namespace Api.Controllers
 
         // ctor
         public TerminalController(
+            ITerminal terminal,
             IHttpClientFactory httpClientFactory,
             ILogger<TerminalController> logger,
             IOptions<TerminalSettings> terminalSettings)
@@ -33,8 +34,8 @@ namespace Api.Controllers
             _logger = logger;
             _settings = terminalSettings.Value;
 
-            // added as singleton
-            _terminal = new Terminal(_settings.Address, _settings.Name, _settings.Description, _settings.Id);
+            // added as singleton (not really)
+            _terminal = terminal;
 
             // Create httpClients for sending containers
             _httpClientFactory = httpClientFactory;
