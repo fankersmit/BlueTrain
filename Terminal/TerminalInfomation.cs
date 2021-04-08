@@ -13,7 +13,7 @@ namespace BlueTrain.Terminal
         public string Description{ get;  }
         public Guid ID{ get;  }
         public string Status{ get;  }
-        public DateTime TimeStamp;
+        public DateTime InformationTimeStamp { get; }
 
         private TerminalInformation(Uri address, Guid id, string name, string description, TerminalStatus status)
         {
@@ -22,7 +22,7 @@ namespace BlueTrain.Terminal
             Description = description;
             ID = id;
             Status = Enum.GetName(status);
-            TimeStamp = DateTime.UtcNow;
+            InformationTimeStamp = DateTime.UtcNow;
         }
 
         public string ToJsonString()

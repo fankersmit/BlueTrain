@@ -10,5 +10,6 @@ namespace BlueTrain.Shared
         public string Description { get; }
         public Guid ID { get; }
         public string Status { get; }
+        public DateTime InformationTimeStamp { get; }
     }
 }

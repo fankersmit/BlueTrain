@@ -65,7 +65,7 @@ namespace BlueTrainTests
             Assert.Equal(_description, ci.Description);
             Assert.Equal(_Id, ci.ID);
             Assert.Equal(status, ci.Status);
-            Assert.True( ci.TimeStamp <= now);
+            Assert.True( ci.InformationTimeStamp <= now);
         }
     }
 }

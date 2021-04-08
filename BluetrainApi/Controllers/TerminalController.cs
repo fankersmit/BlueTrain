@@ -77,7 +77,7 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(Dictionary<string,string>), StatusCodes.Status200OK)]
         public Dictionary<string,string> IsOpen()
         {
-            var key= "isopen:";
+            var key= "isopen";
             string isOpen = _terminal.IsOpen().ToString().ToLower();
             return new Dictionary<string, string> {{key, isOpen}};
         }
@@ -87,7 +87,7 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(Dictionary<string,string>), StatusCodes.Status200OK)]
         public Dictionary<string,string> IsClosed()
         {
-            var key= "isclosed:";
+            var key= "isclosed";
             var value = _terminal.IsClosed().ToString().ToLower();
             return new Dictionary<string, string> {{key, value}};
         }

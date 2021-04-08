@@ -1,0 +1,105 @@
+### GET request is-open
+GET https://localhost:5001/api/v1/terminal/is-open
+Accept: application/json
+
+> {%
+    client.test("is-open executed successfully", function() {
+         client.assert(response.status === 200, "Response status is not 200");
+     });
+
+    client.test("body content is correct", function() {
+         var  isopen = response.body.isopen;
+         client.assert( isopen === "false", "Expected false but received '" + isopen + "'.");
+     });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+%}
+
+### GET request is-closed
+GET https://localhost:5001/api/v1/terminal/is-closed
+Accept: application/json
+
+> {%
+    client.test("is-closed executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("body content is correct", function() {
+         var  isClosed = response.body.isclosed;
+         client.assert( isClosed === "true", "Expected true but received '" + isClosed + "'.");
+     });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+%}
+
+### GET request terminal/information
+GET https://localhost:5001/api/v1/terminal/information
+Accept: application/json
+
+> {%
+    client.test("information executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+
+    client.test("body content is correct", function() {
+         client.assert(  typeof( response.body.ID );
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+%}
+
+### GET request terminal/information/status
+GET https://localhost:5001/api/v1/terminal/information/status
+Accept: application/json
+
+### POST request
+POST https://localhost:5001/api/v1/terminal/open
+Content-Type: application/json
+
+### GET request is-open
+GET https://localhost:5001/api/v1/terminal/is-open
+Accept: application/json
+
+### POST request
+POST https://localhost:5001/api/v1/terminal/receive
+Content-Type: application/json
+
+{
+  "Id":"e7dfe892-4fd9-4ac8-9468-472aac76bf93",
+  "Name":"ContainerName",
+  "Description":"Container description",
+  "Status":0,
+  "RoutingSlip":null,
+  "CreatedOn":"2021-04-06T11:44:00.9061374Z",
+  "HasRoutingSlip":false
+}
+
+### POST request
+POST https://localhost:5001/api/v1/terminal/close
+Content-Type: application/json
+
+> {%
+    client.test("close executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("body content is correct", function() {
+        var  status = response.body.Status;
+         client.assert( status  === "Closed", "Expected 'Closed' but received '" + status + "'.");
+     });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+%}
