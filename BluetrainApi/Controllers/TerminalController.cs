@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using BlueTrain.Containers;
@@ -68,8 +66,7 @@ namespace Api.Controllers
 
             // put container in yard -> created 201
             _terminal.HoldingYard.Add(ctr);
-            var message = $"Container {containerID} added to holding yard";
-            return Ok(message); // Created();
+            return Created($"api/v1/terminal/holdingyard/{containerID}", ctr); // Created();
         }
 
         [HttpGet]
@@ -90,30 +87,6 @@ namespace Api.Controllers
             var key= "isclosed";
             var value = _terminal.IsClosed().ToString().ToLower();
             return new Dictionary<string, string> {{key, value}};
-        }
-
-        [HttpPost]
-        [Route("open")]
-        [ProducesResponseType(typeof(TerminalStatusInformation), StatusCodes.Status200OK)]
-        public TerminalStatusInformation Open()
-        {
-            _terminal.Open();
-            return new TerminalStatusInformation
-            {
-                Status = Enum.GetName(_terminal.Status)
-            };
-        }
-
-        [HttpPost]
-        [Route("close")]
-        [ProducesResponseType(typeof(TerminalStatusInformation), StatusCodes.Status200OK)]
-        public TerminalStatusInformation Close()
-        {
-            _terminal.Close();
-            return new TerminalStatusInformation
-            {
-                Status = Enum.GetName(_terminal.Status)
-            };
         }
 
         [HttpGet]

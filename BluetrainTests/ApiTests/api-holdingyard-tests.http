@@ -1,0 +1,126 @@
+### arrange: open terminal
+
+### GET request holdingyard status
+GET https://{{host}}/{{holdingyard-path}}/status
+Accept: application/json
+
+> {%
+    client.test("status executed successfully", function() {
+         client.assert(response.status === 200, "Response status is not 200");
+     });
+
+    client.test("body content is correct", function() {
+         var  status = response.body.status;
+         client.assert( status === "false", "Expected false but received '" + status + "'.");
+     });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+%}
+
+### GET request is-empty
+GET https://{{host}}/{{holdingyard-path}}/is-empty
+Accept: application/json
+
+> {%
+    client.test("is-empty executed successfully", function() {
+         client.assert(response.status === 200, "Response status is not 200");
+     });
+
+    client.test("body content is correct", function() {
+         var  isempty = response.body.is-empty;
+         client.assert( status === "false", "Expected false but received '" + isempty + "'.");
+     });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+%}
+
+### GET request is-filled
+GET https://{{host}}/{{holdingyard-path}}/is-filled
+Accept: application/json
+
+> {%
+    client.test("is-filled executed successfully", function() {
+         client.assert(response.status === 200, "Response status is not 200");
+     });
+
+    client.test("body content is correct", function() {
+         var  isfilled = response.body.is-filled;
+         client.assert( status === "false", "Expected false but received '" + isfilled + "'.");
+     });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+%}
+
+### GET request capacity
+GET https://{{host}}/{{holdingyard-path}}/capacity
+Accept: application/json
+
+> {%
+    var expectedCapacity = 100;
+
+    client.test("is-filled executed successfully", function() {
+         client.assert(response.status === 200, "Response status is not 200");
+     });
+
+    client.test("body content is correct", function() {
+         var  capacity = response.body.capacity;
+         client.assert( capacity == expectedCapacity, "Expected " + expectedCapacity + ", but received " + capacity + ".");
+     });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+%}
+
+### GET request count containers in yard
+GET https://{{host}}/{{holdingyard-path}}/containers/count
+Accept: application/json
+
+> {%
+    client.test("is-filled executed successfully", function() {
+         client.assert(response.status === 200, "Response status is not 200");
+     });
+
+    client.test("body content is correct", function() {
+         var  count = response.body.count;
+         client.assert( count  == 0, "Expected "+ 0 + "but received " + count + ".");
+     });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+%}
+
+### GET container from yard -- success --
+GET https://{{host}}/{{holdingyard-path}}/containers?Id={{existing-container-ID}}/information
+Accept: application/json
+
+> {%
+    client.test("is-filled executed successfully", function() {
+         client.assert(response.status === 200, "Response status is not 200");
+     });
+%}
+
+### GET container from yard -- failure --
+GET https://{{host}}/{{holdingyard-path}}/containers?Id={{non-existing-container-ID}}/information
+Accept: application/json
+
+> {%
+    client.test("is-filled executed successfully", function() {
+         client.assert(response.status === 400, "Response status is not 200");
+     });
+%}
+
+### test return not found  400
+###

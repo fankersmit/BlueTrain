@@ -1,5 +1,5 @@
 ### GET request is-open
-GET https://localhost:5001/api/v1/terminal/is-open
+GET https://{{host}}/{{terminal-path}}/is-open
 Accept: application/json
 
 > {%
@@ -19,7 +19,7 @@ Accept: application/json
 %}
 
 ### GET request is-closed
-GET https://localhost:5001/api/v1/terminal/is-closed
+GET https://{{host}}/{{terminal-path}}/is-closed
 Accept: application/json
 
 > {%
@@ -39,7 +39,7 @@ Accept: application/json
 %}
 
 ### GET request terminal/information
-GET https://localhost:5001/api/v1/terminal/information
+GET https://{{host}}/{{terminal-path}}/information
 Accept: application/json
 
 > {%
@@ -59,19 +59,19 @@ Accept: application/json
 %}
 
 ### GET request terminal/information/status
-GET https://localhost:5001/api/v1/terminal/information/status
+GET https://{{host}}/{{terminal-path}}/information/status
 Accept: application/json
 
 ### POST request
-POST https://localhost:5001/api/v1/terminal/open
+POST https://{{host}}/{{terminal-path}}/operator/open
 Content-Type: application/json
 
 ### GET request is-open
-GET https://localhost:5001/api/v1/terminal/is-open
+GET https://{{host}}/{{terminal-path}}/is-open
 Accept: application/json
 
 ### POST request
-POST https://localhost:5001/api/v1/terminal/receive
+POST https://{{host}}/{{terminal-path}}/receive
 Content-Type: application/json
 
 {
@@ -85,7 +85,7 @@ Content-Type: application/json
 }
 
 ### POST request
-POST https://localhost:5001/api/v1/terminal/close
+POST https://{{host}}/{{terminal-path}}/operator/close
 Content-Type: application/json
 
 > {%
