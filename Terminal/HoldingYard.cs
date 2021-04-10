@@ -7,13 +7,16 @@ using BlueTrain.Shared;
 namespace BlueTrain.Terminal
 {
     public class HoldingYard : IHoldingYard
-    {
+   {
+        // fields
+        private const int _capacity = 100;
         private readonly IList<Container> _containers;
 
         // properties
         public bool IsEmpty => _containers.Count == 0;
-
+        public bool IsFilled => _containers.Count >= _capacity;
         public int Count => _containers.Count;
+        public int Capacity => _capacity;
 
         // ctors
         public HoldingYard()
@@ -22,6 +25,11 @@ namespace BlueTrain.Terminal
         }
 
         // methods
+        public IHoldingYardInformation GetHoldingYardInfo()
+        {
+            return new HoldingYardInformation(_capacity, _containers.Count);
+        }
+
 
         // return null if not found
         // finding does not remove container from yard

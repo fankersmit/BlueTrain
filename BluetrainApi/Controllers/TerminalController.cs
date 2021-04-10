@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
-using BlueTrain.Containers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using BlueTrain.Terminal;
-using Microsoft.AspNetCore.Http;
 
+using BlueTrain.Containers;
+using BlueTrain.Terminal;
 
 namespace Api.Controllers
 {
@@ -40,6 +40,57 @@ namespace Api.Controllers
         }
 
         // methods
+
+
+        [HttpGet]
+        [Route("holdingyard/information")]
+        [ProducesResponseType( StatusCodes.Status200OK)]
+        public IHoldingYardInformation GetHoldingYardInformation()
+        {
+            return _terminal.HoldingYard.GetHoldingYardInfo();
+        }
+
+        [HttpGet]
+        [Route("holdingyard/is-empty")]
+        [ProducesResponseType(typeof(Dictionary<string,string>), StatusCodes.Status200OK)]
+        public Dictionary<string, string> HoldingYardIsEmpty()
+        {
+            var key = "isempty";
+            var isempty = _terminal.HoldingYard.IsEmpty.ToString().ToLower();
+            return new Dictionary<string, string> {{key, isempty}};
+        }
+
+        [HttpGet]
+        [Route("holdingyard/is-filled")]
+        [ProducesResponseType(typeof(Dictionary<string,string>), StatusCodes.Status200OK)]
+        public Dictionary<string, string>  HoldingYardIsFilled()
+        {
+            var key = "isfilled";
+            var isfilled = _terminal.HoldingYard.IsFilled.ToString().ToLower();
+            return new Dictionary<string, string> {{key, isfilled }};
+        }
+
+        [HttpGet]
+        [Route("holdingyard/capacity")]
+        [ProducesResponseType(typeof(Dictionary<string,int>), StatusCodes.Status200OK)]
+        public Dictionary<string, int> HoldingYardCapacity()
+        {
+            var key = "capacity";
+            var capacity = _terminal.HoldingYard.Capacity;
+            return new Dictionary<string, int> {{ key, capacity }};
+        }
+
+        [HttpGet]
+        [Route("holdingyard/containers/count")]
+        [ProducesResponseType(typeof(Dictionary<string,int>), StatusCodes.Status200OK)]
+        public Dictionary<string, int> ContainersCount()
+        {
+
+            var key = "count";
+            var count = _terminal.HoldingYard.Count;
+            return new Dictionary<string, int> {{ key, count }};
+        }
+
         [HttpPost]
         [Route("receive")]
         [ProducesResponseType( StatusCodes.Status201Created)]
