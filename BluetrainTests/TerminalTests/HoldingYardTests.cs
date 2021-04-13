@@ -54,7 +54,7 @@ namespace BlueTrainTests
             {
                 yard.Add(CreateContainer());
             }
-            var expectedResults = new bool[] { false,false, true, true, true, true };
+            var expectedResults = new [] { false,false, true };
 
             // act, assert
             foreach (var expected in expectedResults)
