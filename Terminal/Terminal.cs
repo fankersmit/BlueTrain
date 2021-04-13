@@ -20,7 +20,6 @@ namespace BlueTrain.Terminal
 
             // handling of containers
             HoldingYard = new HoldingYard();
-            HasValidRoutingSlip = false;
         }
 
         // properties
@@ -31,7 +30,6 @@ namespace BlueTrain.Terminal
         public Dictionary<string, string> Capabilities { get; }
         public TerminalStatus Status { get; protected set; }
         public IHoldingYard HoldingYard { get; }
-        public bool HasValidRoutingSlip { get; private set; }
 
         // methods
         public bool IsClosed()

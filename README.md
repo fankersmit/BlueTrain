@@ -27,11 +27,11 @@ A terminal is accessible through its REST-API. This project provides the interfa
 |<span style="color:yellow">No</span>|RPC|C|root/v1/terminal/receive/{ContainerID}|POST|201, 202|400, 403|container|Receive a container with ID ContainerID|
 |<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/information|GET|200|400|json| report on id, version and capabiltiies of a terminal|
 |<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/information/status|GET|200|400|json| report current status terminal|
-|<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/information|GET|200|400|json| report on id, version  of a oldingyard|
-|<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/is-empty|GET|200|400|json| true if no containers are in the yard|
-|<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/is-filled|GET|200|400|json| true if yard is filled to capacity|
-|<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/capacity|GET|200|400|json| reports number of container the yard can hold|
-|<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/containers/count|GET|200|400|json| reports number of container in the yard|
+|<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/holdingyard/information|GET|200|400|json| report on id, version  of a oldingyard|
+|<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/holdingyard/is-empty|GET|200|400|json| true if no containers are in the yard|
+|<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/holdingyard/is-filled|GET|200|400|json| true if yard is filled to capacity|
+|<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/holdingyard/capacity|GET|200|400|json| reports number of container the yard can hold|
+|<span style="color:green">Yes</span>|RPC|Q|root/v1/terminal/holdingyard/containers/count|GET|200|400|json| reports number of container in the yard|
 |<span style="color:yellow">No</span>|RPC|Q|root/v1/terminal/holdingyard/containers?id={ID}|GET|200|400|json| reports number of container in the yard|
 
 

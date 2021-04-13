@@ -25,6 +25,46 @@ namespace BlueTrainTests
         }
 
         [Fact]
+        public void Adding_Beyond_Capacity_Throws_InvalidOperation_Exception()
+        {
+            // arrange
+            var pattern  = new Regex("Holdingyard is filled to capacity: cannot add container with ID: [0-9a-z-]+\\.");
+            var capacity = 5;
+            var yard = new HoldingYard(capacity);
+
+            // fill up the yard
+            for (var i = 0; i < capacity; i++)
+            {
+                yard.Add(CreateContainer());
+            }
+
+            // assert
+            var  ex  = Assert.Throws<InvalidOperationException>( ()=> yard.Add(CreateContainer()));
+            Assert.Matches(pattern, ex.Message);
+        }
+
+        [Fact]
+        public void IsFilled_True_When_Capacity_Reached()
+        {
+            // arrange
+            var yard = new HoldingYard();
+            var capacity = yard.Capacity;
+
+            for (var i = 0; i < capacity - 3 ; i++)
+            {
+                yard.Add(CreateContainer());
+            }
+            var expectedResults = new bool[] { false,false, true, true, true, true };
+
+            // act, assert
+            foreach (var expected in expectedResults)
+            {
+                yard.Add(CreateContainer());
+                Assert.Equal(expected, yard.IsFilled);
+            }
+        }
+
+        [Fact]
         public void FindByInfo_Retrieves_Container_Using_ID()
         {
             // arrange
@@ -39,7 +79,6 @@ namespace BlueTrainTests
             // assert
             Assert.Equal(container.Id, ctr.Id);
         }
-
 
         [Fact]
         public void Adding_More_Than_Once_Throws_ArgumentException()
@@ -130,6 +169,5 @@ namespace BlueTrainTests
         {
             return new Container(Guid.NewGuid(), "Name", "Description");
         }
-
     }
 }

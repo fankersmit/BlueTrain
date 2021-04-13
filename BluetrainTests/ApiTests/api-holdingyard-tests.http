@@ -1,7 +1,7 @@
 ### arrange: open terminal
 
 ### GET request holdingyard status
-GET https://{{host}}/{{holdingyard-path}}/status
+GET https://{{host}}/{{holdingyard-path}}/information
 Accept: application/json
 
 > {%
@@ -10,8 +10,8 @@ Accept: application/json
      });
 
     client.test("body content is correct", function() {
-         var  status = response.body.status;
-         client.assert( status === "false", "Expected false but received '" + status + "'.");
+         var  capacity = response.body.Capacity;
+         client.assert( capacity == 100 , "Expected  100, but received '" + capacity + "'.");
      });
 
     client.test("Response content-type is json", function() {
@@ -30,8 +30,8 @@ Accept: application/json
      });
 
     client.test("body content is correct", function() {
-         var  isempty = response.body.is-empty;
-         client.assert( status === "false", "Expected false but received '" + isempty + "'.");
+         var  isempty = response.body.isempty;
+         client.assert( isempty === "true", "Expected true but received '" + isempty + "'.");
      });
 
     client.test("Response content-type is json", function() {
@@ -50,8 +50,8 @@ Accept: application/json
      });
 
     client.test("body content is correct", function() {
-         var  isfilled = response.body.is-filled;
-         client.assert( status === "false", "Expected false but received '" + isfilled + "'.");
+         var  isfilled = response.body.isfilled;
+         client.assert( isfilled === "false", "Expected false but received '" + isfilled + "'.");
      });
 
     client.test("Response content-type is json", function() {
@@ -93,7 +93,7 @@ Accept: application/json
 
     client.test("body content is correct", function() {
          var  count = response.body.count;
-         client.assert( count  == 0, "Expected "+ 0 + "but received " + count + ".");
+         client.assert( count == 0, "Expected "+ 0 + ", but received " + count + ".");
      });
 
     client.test("Response content-type is json", function() {
@@ -118,7 +118,7 @@ Accept: application/json
 
 > {%
     client.test("is-filled executed successfully", function() {
-         client.assert(response.status === 400, "Response status is not 200");
+         client.assert(response.status === 404, "Response status is not 404");
      });
 %}
 

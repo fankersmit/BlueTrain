@@ -2,14 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BlueTrain.Containers;
-using BlueTrain.Shared;
 
 namespace BlueTrain.Terminal
 {
     public class HoldingYard : IHoldingYard
    {
         // fields
-        private const int _capacity = 100;
+        protected readonly int _capacity = 100;
         private readonly IList<Container> _containers;
 
         // properties
@@ -19,6 +18,11 @@ namespace BlueTrain.Terminal
         public int Capacity => _capacity;
 
         // ctors
+        public HoldingYard( int capacity) : this()
+        {
+            _capacity = capacity;
+        }
+
         public HoldingYard()
         {
             _containers = new List<Container>();
@@ -55,11 +59,16 @@ namespace BlueTrain.Terminal
 
         public void Add(Container container)
         {
-            var ctr = _containers.FirstOrDefault(c => c.Id == container.Id);
-            var message = $"Container with ID: {container.Id} already in yard: Cannot add container.";
+            if (IsFilled)
+            {
+                var message  = $"Holdingyard is filled to capacity: cannot add container with ID: {container.Id}.";
+                throw new InvalidOperationException(message);
+            }
 
+            var ctr = _containers.FirstOrDefault(c => c.Id == container.Id);
             if (ctr != null)
             {
+                var message = $"Container with ID: {container.Id} already in yard: Cannot add container.";
                 throw new ArgumentException(message);
             }
             _containers.Add(container);
