@@ -2,7 +2,7 @@ using System;
 
 namespace TerminalDashboard.Models
 {
-    public class Terminal
+    public class TerminalModel
     {
         public Uri Address { get; set; }
         public string Name { get; set; }

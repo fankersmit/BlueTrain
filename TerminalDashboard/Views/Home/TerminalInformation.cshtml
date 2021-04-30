@@ -1,0 +1,14 @@
+@model TerminalModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>@Model.Name</h2>
+
+Name:  @Model.Name <br>
+ID: @Model.ID <br>
+Description: @Model.Description <br>
+Status: @Model.Status
+Information Retrieved:  @Model.InformationTimeStamp.Date

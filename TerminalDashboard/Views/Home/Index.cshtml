@@ -4,26 +4,36 @@
 
 <style>
 
-#box_active {
- width: 400px;
+div.box_active {
+ width: 80%;
  height: 100px;
  margin: 10px;
  padding: 10px;
  border-radius: 15px;
  background:  lightgreen;
+ border: 1px solid green;
+ opacity: 0.6;
+}
+
+div.box_active p {
+  text-align: left;
+  margin: 0% 5% 5% 5%;
+  font-weight: bold;
+  color: #000000;
 }
 
 </style>
 
 <div class="text-center">
-    <h1 class="display-4">Terminal Overview</h1>
-
-
+    <h1 class="display-4">TerminalModel Overview</h1>
         @for ( int i = 0 ; i < (int)ViewData["TerminalCount"]; i++ )
         {
             var key = string.Format("RPI0{0}", i + 1);
-            <div id="box_active"> @key : @ViewData[key] </div>
+            <div class="box_active">
+                <p>
+                     @key : @ViewData[key] <br>
+                     <a href="/Home/TerminalInformation?terminalID=@key">Get additional information </a>
+                </p>
+            </div>
         }
-
-
 </div>
