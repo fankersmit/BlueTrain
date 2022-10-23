@@ -40,23 +40,23 @@ A terminal is accessible through its REST-API. This project provides the interfa
 
 
 # Container
-A container holds the ***Cargo*** to be processed inthe containers on its ***Routingslip***.
-Cargo is always readable in a human form like a docker docker defnition file.
+A container holds the ***Cargo*** to be processed in the containers on its ***Routingslip***.
+Cargo is always readable in a human form like a docker defnition file.
 A container wihthout a routing slip doesn't know where to go.
 A container contaiener has no knowledge of the terminal it is in.
 ## Sending a container
 
 A ***Terminal*** can ***Send*** and ***Receive*** any ***Container***. 
 A Terminal can only receive a contiainer when **Open**.
-A ***failing*** Send means the container stays in the **HoldingYard**.
+A ***failing*** Send means the container stays in the **HoldingYard** of the terminal from which the container is sent.
 You can only Send to a specfic terminal as determinend from the ***Routingslip***.
 
 # TripTracker
-Every container has a  ***TripTracker*** attached. This is a device which registers the terminals  visteid, or the completed trips. It also determins the next  trip. If a  journey on the routingslip *ordered* it picks the next  one from the routingslip. Ifthe the next terminal is not availle for receiving, itmakes the container wait until it is. It then asks the currentterminla to forward the  container to the next terminal. If a trip is *not ordered* the Triptracker just  termines the next available  Receiving terminal and  asks the current terminal to forward the  container to this  terminal. 
+Every container has a  ***TripTracker*** attached. This is a device which registers the terminals visteid, or the completed trips. It also determines the next  trip. If a  journey on the routingslip is *ordered* it picks the next  one from the routingslip. If the the next terminal is not available for receiving, it makes the container wait until it is. It then asks the current terminal to forward the container to the next terminal. If a trip is *not ordered* the Triptracker just determines the next available  Receiving terminal and  asks the current terminal to forward the container to this terminal. 
 
 # RoutingSip
-A ***Routingslip*** describes all the terminals a contaitner has to visit.
-A ***Trip*** is the moving from a container from one terminla to the next. 
+A ***Routingslip*** describes all the terminals a container has to visit.
+A ***Trip*** is the moving from a container from one terminal to the next. 
 A ***Journey*** is a ***possibly ordered*** **list of trips**.
 
 # Trip
@@ -65,8 +65,14 @@ A Trip contains a Departure, Destination, Departure and Arrival time and an indi
 # BlueTrain class diagram
 
 ```mermaid 
-
 classDiagram
+    direction LR
+        class Identfication{
+        +String Name
+        +String Description
+        +Guid ID 
+        +DateTime CreatedOn
+    }
 
     class Terminal{
         +TerminalInformation Information
@@ -83,22 +89,22 @@ classDiagram
         +IsSending() bool
     }
 
-    class Capabilities {
-        
+    class Capabilities{
+       
     }
 
-    class Container {
+    class Container{
         +Identfication identification  
         +TripTracker tripTracker
         +RoutingSlip routingSlip
         +Cargo cargo
     }
 
-    class Cargo {
+    class Cargo{
        
     }
 
-    class HoldingYard {
+    class HoldingYard{
         +int Capacity
         +IsEmpty() bool
         +IsFilled() bool
@@ -107,12 +113,6 @@ classDiagram
         +FindByID(Guid ID) Container
     }
     
-    class Identfication {
-        +String Name
-        +String Description
-        +Guid ID 
-        +DateTime CreatedOn
-    }
 
     class RoutingSlip{
         +Created DateTime
@@ -147,7 +147,7 @@ classDiagram
     }
     
     class TerminalStatus{
-        << enumeration >>
+        <<Enumeration>>
         Closed
         Opening
         Open
