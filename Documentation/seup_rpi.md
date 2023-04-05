@@ -1,3 +1,14 @@
+- [Create Rpi image](#create-rpi-image)
+- [Rpi setup data](#rpi-setup-data)
+- [Check OS](#check-os)
+- [Disable Bluetooth (optional)](#disable-bluetooth-optional)
+- [Setup static IP](#setup-static-ip)
+- [Configure ssh for use with Teamcity](#configure-ssh-for-use-with-teamcity)
+- [Install latest dotnet](#install-latest-dotnet)
+- [Update OS,  Install visual studio  code](#update-os--install-visual-studio--code)
+- [Configure /var/www for deployments](#configure-varwww-for-deployments)
+
+
 #  Create Rpi image
 
 - Use Raspberry pi imager
@@ -16,12 +27,12 @@
 
 # Rpi setup data
 
-| number| type| SSID| IP| User| Pwd | installed
-|--|--|--|--|--|--|--|
-| 01| 3B| RPI01| 192.168.2.45| frits| rasp01 | 08-03-2022 |
-| 02| 3B| RPI02| 192.168.2.47| frits| rasp02 ||
-| 03| 3B| RPI03| 192.168.2.48| frits| rasp03 ||
-| 04| 3B| RPI04| 192.168.2.46| frits| rasp04 | 27-02-2022 |
+| number| type| SSID| User| Pwd | installed | .NET SDK |
+|--:|--|--|--|--|--|--|
+| 01| 3B| RPI01| frits| rasp01 | 03-04-32023 | 7.0.202 |
+| 02| 3B| RPI02| frits| rasp02 | 03-04-32023 | 7.0.202 |
+| 03| 3B| RPI03| frits| rasp03 | 03-04-32023 | 7.0.202 |
+| 04| 3B| RPI04| frits| rasp04 | 03-04-32023 | 7.0.202 |
 
 ---
 # Check OS
@@ -31,7 +42,7 @@ Open a terminal and check if result from next  command conatains `aarch64`.
 uname -a
 ```
 
-# Disable Bluetooth
+# Disable Bluetooth (optional)
 Run the following commands and reboot to see result in taskbar.
 
 ```bash
@@ -43,11 +54,66 @@ sudo nano /boot/config.txt
 dtoverlay=disable-bt
 ```
 
+# Setup static IP 
+ Following table list desired static IP addresses.
+
+| number|  SSID| IP|
+|--:|--|--|
+| 01|  RPI01| 192.168.2.45| 
+| 02|  RPI02| 192.168.2.47| 
+| 03|  RPI03| 192.168.2.49| 
+| 04|  RPI04| 192.168.2.51| 
+
+ Run the following commands to set up static IP fo RPI:
+
+```bash
+# Retrieve current defined router
+ip r | grep default
+```
+
+Make a note of the first IP mentioned in this string, is router current IP adres
+
+```bash
+# Retrieve IP of current DNS server
+sudo nano /etc/resolv.conf
+```
+
+Make a note of the IP next to “nameserver“. This defines the name server in our next few steps.
+
+```bash
+# Modify the “dhcpcd.conf” configuration file
+sudo nano /etc/dhcpcd.conf
+```
+- add to bottom and save
+
+``` 
+interface <NETWORK>
+static ip_address=<STATICIP>/24
+static routers=<ROUTERIP>
+static domain_name_servers=<DNSIP>
+```
+where:
+| template| value|
+| -- | -- |
+ | `<NETWORK>`  | `eth0` or `wlan0` |
+ | `<STATICIP>` | desired IP adress of rpi |
+ | `<ROUTERIP>` | earlier retrieved router IP |
+ | `<DNSIP>`    | earlier retreived DNS nameserver IP |
+
+- and finally
+
+```bash
+# restart the pi
+sudo reboot
+# check if RPI IP is set 
+hostname -I
+```
+
 # Configure ssh for use with Teamcity
 
 - first upload the SSH private key to right project in Teamcity
 
-```
+```powershell
 http://localhost:9090/admin/editProject.html?projectId=Bluetrain&tab=ssh-manager
 ```
 
@@ -57,17 +123,17 @@ http://localhost:9090/admin/editProject.html?projectId=Bluetrain&tab=ssh-manager
 - navigate to .ssh folder:  C:Users\Frits Ankersmit\\.ssh  
   
 ```
-type .\bluetrain-key-rsa.pub | ssh {IP-ADRESS} "cat >> .ssh/authorized_keys"
+type .\bluetrain-key-rsa.pub | ssh {USER}@{IP-ADRESS} "cat >> .ssh/authorized_keys"
 ```
 
-Be sure to replace {IP_ADRESS} with the actual adress. Answer Yes when prompted.
-The teamcity deploy build ow uses SSH and key to automatically deploy builds.    
+Be sure to replace {USER } and {IP_ADRESS} with the actual values. Answer Yes when prompted.
+The teamcity deploy build now uses SSH and key to automatically deploy builds.    
 
 # Install latest dotnet
 
 - Go to  `https://dotnet.microsoft.com/en-us/download/dotnet/6.0`
 - Select linux arm64  download
-- Navigate to  `$HOME/downloads`
+- Navigate to  `$HOME/Downloads`
 - Run following commands
 
 ```bash
@@ -108,6 +174,10 @@ sudo apt install code
 To give  Teamcity Deploy the right permissions tpo deploy to  /var/www/bluetrain run the following commands  
 
 ```bash
+# crate  the deploymnent dirs
+sudo mkdir /var/www
+sudo mkdir /var/www/bluetrain
+
 # replace some user with the default pi user
 sudo usermod -a -G www-data <some_user>
 
